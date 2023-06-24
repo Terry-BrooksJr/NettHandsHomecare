@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "netthandshomecare"
+version = "0.1.0"
+description = "Front-End website and web application for Nett Hands Homecare"
+authors = ["Terry Brooks, Jr. <Terry.Arthur@BrooksJr.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^4.2.2"
+python-dotenv = "^1.0.0"
+psycopg2-binary = "^2.9.6"
+
+[tool.poetry.group.dev.dependencies]
+icecream = "^2.1.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
