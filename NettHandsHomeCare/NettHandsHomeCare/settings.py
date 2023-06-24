@@ -1,6 +1,9 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
+
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
@@ -25,7 +28,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 ROOT_URLCONF = "NettHandsHomeCare.urls"
-TEMPLATE_DIR = os.path.join(BASE_DIR,"templates")
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -41,7 +44,7 @@ TEMPLATES = [
         },
     },
 ]
-AUTH_USER_MODEL = 'portal.Employee' # Add this
+AUTH_USER_MODEL = "portal.Employee"  # Add this
 WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
 DATABASES = {
     "default": {
@@ -51,7 +54,7 @@ DATABASES = {
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
         "PORT": os.getenv("DB_PORT"),
-    }
+    },
 }
 AUTH_PASSWORD_VALIDATORS = [
     {
