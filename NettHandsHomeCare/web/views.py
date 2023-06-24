@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from web.forms import ClientInterestForm
 #SECTION - Page Rendering Views
 
 def index(request):
@@ -34,4 +34,29 @@ def employee_interest(request):
         Renders sub-page Employee Application Form 
     """
     return render('employee-interest.html', {"title":"Caregiver Employment Application"})
+#!SECTION
+
+#SECTION - Form Processing Views
+def submit_client_intrest(request):
+    """Instatiates the ClientInterestForm Class and checks the request.method. If Post - Processes Form Data. If GET - Renders Form
+
+    Args:
+        request (_type_): _description_
+    """
+        # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect("/thanks/")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, "name.html", {"form": form})
 #!SECTION

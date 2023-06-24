@@ -27,7 +27,7 @@ class ClientInterestSubmissions(models.Model):
         verbose_name_plural = "Interested Clients"
 
 
-class EmploymentApplication(models.Model):
+class EmploymentApplicationModel(models.Model):
     
     class MOBILITTY(models.TextChoices):
         CAR = "C", _("I Have Consistent Access To A Car")
@@ -50,7 +50,6 @@ class EmploymentApplication(models.Model):
     zipcode = models.IntegerField(max_digits=5)
     mobility = models.CharField(max_length=255, choices=MOBILITTY.choices)
     prior_experience = models.CharField(max_length=255, choices=PRIOREXPERIENCE.choices)
-    insurance_carrier = models.CharField(max_length=255)
     availability_monday = models.BooleanField()
     availability_tuesday = models.BooleanField()
     availability_wednesday = models.BooleanField()
