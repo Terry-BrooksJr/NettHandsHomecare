@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from web.forms import ClientInterestForm,EmploymentApplicationForm
+from web.forms import ClientInterestForm
+from web.forms import EmploymentApplicationForm
 
 # SECTION - Page Rendering Views
 
@@ -15,8 +17,9 @@ def index(request):
     """
     return render(request, "index.html", {"title": "Home"})
 
+
 def employee_interest(request):
-    """Secondary Render Function that Renders the sub-page for the employee interest form  template located in 'employee-interest.html' file .
+    """Secondary Render Function that Renders the sub-page for the employee interest form template located in 'employee-interest.html' file.
 
     Args:
         request (HttpRequestObject): Request Object Passed at time of calling.
@@ -25,7 +28,8 @@ def employee_interest(request):
         Renders sub-page Employee Application Form
     """
     return render(
-        "employee-interest.html", {"title": "Caregiver Employment Application"}
+        "employee-interest.html",
+        {"title": "Caregiver Employment Application"},
     )
 
 
@@ -39,8 +43,8 @@ def client_interest(request):
     Args:
         request (_type_): Request Object Passed at time of calling.
 
-    Returns: 
-        Renders or Processes ClientInterestForm 
+    Returns:
+        Renders or Processes ClientInterestForm
     """
     # if this is a POST request we need to process the form data
     if request.method == "POST":
@@ -57,8 +61,15 @@ def client_interest(request):
     else:
         form = ClientInterestForm()
 
-    return render(request, "client-interest.html", {"form": form, "title": "Client Interest Form"})
+    return render(
+        request,
+        "client-interest.html",
+        {"form": form, "title": "Client Interest Form"},
+    )
+
 
 def submitted(request):
     return render(request, "submission.html", {"title": "Form Submission Confirmation"})
+
+
 #!SECTION
