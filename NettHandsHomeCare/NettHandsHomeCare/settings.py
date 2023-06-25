@@ -21,9 +21,10 @@ INSTALLED_APPS = [
     "web",
     "portal",
 ]
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMibddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -80,3 +81,6 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
