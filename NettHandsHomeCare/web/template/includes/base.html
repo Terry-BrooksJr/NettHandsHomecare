@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nett Hands Homecare - {% block title %}{% endblock %}</title>
+    <title>Nett Hands Homecare - {{ title }}</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
@@ -74,9 +74,11 @@
             <div id="mobile-menu-wrap"></div>
         </div>
     </header>
+    <body>
     {% block main %}
 
     {% endblock %}
+    </body>
     <footer class="footer">
         <div class="container">
             <div class="footer__top">
