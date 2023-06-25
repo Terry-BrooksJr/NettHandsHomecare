@@ -1,0 +1,2 @@
+# NettHandsHomecare
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/846da15c604740dda42e6de8bd89c7e9)](https://app.codacy.com/gh/Terry-BrooksJr/NettHandsHomecare?utm_source=github.com&utm_medium=referral&utm_content=Terry-BrooksJr/NettHandsHomecare&utm_campaign=Badge_Grade)
