@@ -1,51 +1,43 @@
-from django.db import models
+import random
+
 from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.base_user import BaseUserManager
-
-
-class Employee(AbstractUser):
-    pass # For now we do nothinng
-
-    def __str__(self):
-        return self.username
+from django.core.validators import MaxValueValidator
+from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Assessment(models.Model):
-    user = models.ForeignKeyField('Employee', on_delete=models.CASCADE)
-    attempt_date = models.Date
+    user = models.ForeignKey("Employee", on_delete=models.CASCADE)
+    attempt_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return ""
 
-class EmployeeManager(BaseUserManager):
-    
-    def _create_user(self, email, password, **extra_fields):
-        """
-        Create and save a User with the given email and password.
-        """
-        if not email:
-            raise ValueError("The given email must be set")
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
 
-    def create_user(self, email, password=None, **extra_fields):
-        extra_fields.setdefault("is_superuser", False)
-        return self._create_user(email, password, **extra_fields)
+class Employee(AbstractUser):
+    class GENDER(models.TextChoices):
+        MALE = "M", _("Male")
+        FEMALE = "F", _("Female")
+        NON_GENDERED = "X", _("Non-Gendered")
+        BINARY = "B", _("Binary")
 
-    def create_superuser(self, email, password, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
+    gender = models.CharField(
+        max_length=255,
+        choices=GENDER.choices,
+        default=GENDER.NON_GENDERED,
+    )
+    social_security = models.PositiveIntegerField(
+        validators=[MaxValueValidator(999999999)],
+        default=00000,
+    )
+    street_address = models.CharField(max_length=255, default="")
+    city = models.CharField(max_length=255, default="")
+    state = models.CharField(max_length=255, default="")
+    zipcode = models.PositiveIntegerField(
+        validators=[MaxValueValidator(99999)],
+        default=00000,
+    )
+    in_compliance = models.BooleanField(default=False)
 
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError(
-                "Superuser must have is_staff=True."
-            )
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError(
-                "Superuser must have is_superuser=True."
-            )
-
-        return self._create_user(email, password, **extra_fields)
+    def __str__(self):
+        return f"{self.last_name}, {self.first_name} ({self.username})"

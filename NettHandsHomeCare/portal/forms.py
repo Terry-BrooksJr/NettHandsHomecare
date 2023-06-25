@@ -1,12 +1,13 @@
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
-
+from django.contrib.auth.forms import UserCreationForm
 from portal.models import Employee
+
 
 class SignUpForm(UserCreationForm):
     class Meta:
-        model = CustomUser
+        model = Employee
         fields = ("username", "email")
+
 
 class LogInForm(forms.Form):
     email = forms.EmailField()
