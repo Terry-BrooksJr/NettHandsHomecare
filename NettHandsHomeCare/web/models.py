@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -14,7 +15,7 @@ class ClientInterestSubmissions(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     contact_number = models.CharField(max_length=255)
-    zipcode = models.IntegerField(max_digits=5)
+    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
     insurance_carrier = models.CharField(max_length=255)
     desired_service = models.CharField(max_length=255, choices=SERVICES.choices)
     date_submitted = models.DateTimeField(auto_now_add=True)
@@ -31,7 +32,7 @@ class EmploymentApplicationModel(models.Model):
         CAR = "C", _("I Have Consistent Access To A Car")
         PUBLIC = "P", _("I Use Public Transportation")
         RIDE_SHARE = "RS", _(
-            "I Use Rideshare (Uber/Lyft) or a Reliable Pickup/Dropoff Provider"
+            "I Use Rideshare (Uber/Lyft) or a Reliable Pickup/Dropoff Provider",
         )
         OTHER = "NA", _("Other")
 
@@ -47,7 +48,7 @@ class EmploymentApplicationModel(models.Model):
     home_address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     state = models.CharField(max_length=255)
-    zipcode = models.IntegerField(max_digits=5)
+    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
     mobility = models.CharField(max_length=255, choices=MOBILITTY.choices)
     prior_experience = models.CharField(max_length=255, choices=PRIOREXPERIENCE.choices)
     availability_monday = models.BooleanField()
