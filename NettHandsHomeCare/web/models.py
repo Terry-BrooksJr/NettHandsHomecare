@@ -1,8 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-class ClientInterestSubmissions(models.Model):
 
+class ClientInterestSubmissions(models.Model):
     class SERVICES(models.TextChoices):
         INTERMITTENT = "I", _("Intermittent Home Care")
         NONMEDICAL = "NM", _("Non-Medical Home Care")
@@ -10,7 +10,7 @@ class ClientInterestSubmissions(models.Model):
         OCCUP_THERAPY = "OT", _("Occupational Therapy")
         PHYS_THERAPY = "PT", _("PHYSICAL Therapy")
         OTHER = "NA", _("Other")
-        
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     contact_number = models.CharField(max_length=255)
@@ -18,7 +18,6 @@ class ClientInterestSubmissions(models.Model):
     insurance_carrier = models.CharField(max_length=255)
     desired_service = models.CharField(max_length=255, choices=SERVICES.choices)
     date_submitted = models.DateTimeField(auto_now_add=True)
-
 
     class Meta:
         db_table = "interest_clients"
@@ -28,18 +27,19 @@ class ClientInterestSubmissions(models.Model):
 
 
 class EmploymentApplicationModel(models.Model):
-    
     class MOBILITTY(models.TextChoices):
         CAR = "C", _("I Have Consistent Access To A Car")
         PUBLIC = "P", _("I Use Public Transportation")
-        RIDE_SHARE = "RS", _("I Use Rideshare (Uber/Lyft) or a Reliable Pickup/Dropoff Provider")
+        RIDE_SHARE = "RS", _(
+            "I Use Rideshare (Uber/Lyft) or a Reliable Pickup/Dropoff Provider"
+        )
         OTHER = "NA", _("Other")
 
     class PRIOREXPERIENCE(models.TextChoices):
         SENIOR = "S", _("12+ Months")
         JUNIOR = "J", _("3+ Months")
         NEW = "N", _("No Prior Experience")
-        
+
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     contact_number = models.CharField(max_length=255)
@@ -58,7 +58,6 @@ class EmploymentApplicationModel(models.Model):
     availability_saturday = models.BooleanField()
     availability_sunday = models.BooleanField()
     date_submitted = models.DateTimeField(auto_now_add=True)
-
 
     class Meta:
         db_table = "employment_interests"

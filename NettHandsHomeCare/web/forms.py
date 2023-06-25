@@ -9,7 +9,14 @@ class ClientInterestForm(forms.ModelForm):
         """Meta definition for ClientInterestSubmissionform."""
 
         model = ClientInterestSubmissions
-        fields = ("first_name","last_name", "contact_number", "zipcode", "insurance_carrier", "desired_service")
+        fields = (
+            "first_name",
+            "last_name",
+            "contact_number",
+            "zipcode",
+            "insurance_carrier",
+            "desired_service",
+        )
 
 
 class EmploymentApplicationForm(forms.ModelForm):
@@ -19,4 +26,22 @@ class EmploymentApplicationForm(forms.ModelForm):
         """Meta definition for EmploymentApplicationModelForm."""
 
         model = EmploymentApplicationModel
-        fields = ("first_name","last_name", "contact_number", "email", "home_address", "city", "state", "zipcode", "mobility", "prior_experience", "availability_monday", "availability_tuesday","availability_wednesday", "availability_thursday","availability_friday", "availability_saturday","availability_sunday")
+        fields = (
+            "first_name",
+            "last_name",
+            "contact_number",
+            "email",
+            "home_address",
+            "city",
+            "state",
+            "zipcode",
+            "mobility",
+            "prior_experience",
+            "availability_monday",
+            "availability_tuesday",
+            "availability_wednesday",
+            "availability_thursday",
+            "availability_friday",
+            "availability_saturday",
+            "availability_sunday",
+        )

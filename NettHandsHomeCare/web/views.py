@@ -1,62 +1,64 @@
 from django.shortcuts import render
-from web.forms import ClientInterestForm
-#SECTION - Page Rendering Views
+from web.forms import ClientInterestForm,EmploymentApplicationForm
+
+# SECTION - Page Rendering Views
+
 
 def index(request):
     """Primary Render Function that Renders the Homepage template located in index.html.
 
     Args:
-        request (HttpRequestObject): Request Object Passed at time of calling. 
+        request (HttpRequestObject): Request Object Passed at time of calling.
 
     Returns:
         Renders Homepage
     """
-    return render('index.html', {"title":"Home"})
-
-def client_interest(request):
-    """Secondary Render Function that Renders the sub-page for the client interest form  template located in 'client-interest.html' file.
-
-    Args:
-        request (HttpRequestObject): Request Object Passed at time of calling. 
-
-    Returns:
-        Renders sub-page Client Interest Form 
-    """
-    return render('client-interest.html', {"title":"Client Interest Form"})
+    return render(request, "index.html", {"title": "Home"})
 
 def employee_interest(request):
     """Secondary Render Function that Renders the sub-page for the employee interest form  template located in 'employee-interest.html' file .
 
     Args:
-        request (HttpRequestObject): Request Object Passed at time of calling. 
+        request (HttpRequestObject): Request Object Passed at time of calling.
 
     Returns:
-        Renders sub-page Employee Application Form 
+        Renders sub-page Employee Application Form
     """
-    return render('employee-interest.html', {"title":"Caregiver Employment Application"})
+    return render(
+        "employee-interest.html", {"title": "Caregiver Employment Application"}
+    )
+
+
 #!SECTION
 
-#SECTION - Form Processing Views
-def submit_client_intrest(request):
+
+# SECTION - Form Processing Views
+def client_interest(request):
     """Instatiates the ClientInterestForm Class and checks the request.method. If Post - Processes Form Data. If GET - Renders Form
 
     Args:
-        request (_type_): _description_
+        request (_type_): Request Object Passed at time of calling.
+
+    Returns: 
+        Renders or Processes ClientInterestForm 
     """
-        # if this is a POST request we need to process the form data
+    # if this is a POST request we need to process the form data
     if request.method == "POST":
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = ClientInterestForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect("/thanks/")
+            return HttpResponseRedirect("submitted", {"type": "Client Interest Form"})
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NameForm()
+        form = ClientInterestForm()
 
-    return render(request, "name.html", {"form": form})
+    return render(request, "client-interest.html", {"form": form, "title": "Client Interest Form"})
+
+def submitted(request):
+    return render(request, "submission.html", {"title": "Form Submission Confirmation"})
 #!SECTION

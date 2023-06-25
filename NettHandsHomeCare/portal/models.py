@@ -4,21 +4,21 @@ from django.contrib.auth.base_user import BaseUserManager
 
 
 class Employee(AbstractUser):
-    pass # For now we do nothinng
+    pass  # For now we do nothinng
 
     def __str__(self):
         return self.username
 
 
 class Assessment(models.Model):
-    user = models.ForeignKeyField('Employee', on_delete=models.CASCADE)
+    user = models.ForeignKeyField("Employee", on_delete=models.CASCADE)
     attempt_date = models.Date
 
     def __str__(self):
         return ""
 
+
 class EmployeeManager(BaseUserManager):
-    
     def _create_user(self, email, password, **extra_fields):
         """
         Create and save a User with the given email and password.
@@ -40,12 +40,8 @@ class EmployeeManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
 
         if extra_fields.get("is_staff") is not True:
-            raise ValueError(
-                "Superuser must have is_staff=True."
-            )
+            raise ValueError("Superuser must have is_staff=True.")
         if extra_fields.get("is_superuser") is not True:
-            raise ValueError(
-                "Superuser must have is_superuser=True."
-            )
+            raise ValueError("Superuser must have is_superuser=True.")
 
         return self._create_user(email, password, **extra_fields)
