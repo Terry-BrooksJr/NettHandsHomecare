@@ -20,6 +20,9 @@ class ClientInterestSubmissions(models.Model):
     desired_service = models.CharField(max_length=255, choices=SERVICES.choices)
     date_submitted = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.last_name}, {self.first_name} - Submission Date: {self.date_submitted}"
+
     class Meta:
         db_table = "interest_clients"
         ordering = ["last_name", "first_name", "date_submitted"]
