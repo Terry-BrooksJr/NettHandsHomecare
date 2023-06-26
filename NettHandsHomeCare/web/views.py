@@ -1,7 +1,8 @@
-from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.shortcuts import render
 from web.forms import ClientInterestForm
 from web.forms import EmploymentApplicationForm
+from web.models import ClientInterestSubmissions
 
 # SECTION - Page Rendering Views
 
@@ -52,10 +53,8 @@ def client_interest(request):
         form = ClientInterestForm(request.POST)
         # check whether it's valid:
         if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect("submitted", {"type": "Client Interest Form"})
+            form.save()
+            return redirect("submitted")
 
     # if a GET (or any other method) we'll create a blank form
     else:
