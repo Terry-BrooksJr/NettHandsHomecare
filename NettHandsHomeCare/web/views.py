@@ -2,7 +2,6 @@ from django.shortcuts import redirect
 from django.shortcuts import render
 from web.forms import ClientInterestForm
 from web.forms import EmploymentApplicationForm
-from web.models import ClientInterestSubmissions
 
 # SECTION - Page Rendering Views
 
@@ -18,20 +17,17 @@ def index(request):
     """
     return render(request, "index.html", {"title": "Home"})
 
-
-def employee_interest(request):
-    """Secondary Render Function that Renders the sub-page for the employee interest form template located in 'employee-interest.html' file.
+ 
+def about(request):
+    """Primary Render Function that Renders the about sub-page template located in contact.html.
 
     Args:
         request (HttpRequestObject): Request Object Passed at time of calling.
 
     Returns:
-        Renders sub-page Employee Application Form
+        Renders Contact Subpage
     """
-    return render(
-        "employee-interest.html",
-        {"title": "Caregiver Employment Application"},
-    )
+    return render(request, "about.html", {"title": "About Nett Hands"})
 
 
 #!SECTION
@@ -64,6 +60,35 @@ def client_interest(request):
         request,
         "client-interest.html",
         {"form": form, "title": "Client Interest Form"},
+    )
+
+
+def employee_interest(request):
+    """Secondary Render Function that Renders the sub-page for the employee interest form template located in 'employee-interest.html' file.
+
+    Args:
+        request (HttpRequestObject): Request Object Passed at time of calling.
+
+    Returns:
+        Renders sub-page Employee Application Form
+    """
+    # if this is a POST request we need to process the form data
+    if request.method == "POST":
+        # create a form instance and populate it with data from the request:
+        form = EmploymentApplicationForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            form.save()
+            return redirect("submitted")
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = EmploymentApplicationForm()
+
+    return render(
+        request,
+        "employee-interest.html",
+        {"form": form, "title": "Employment Application"},
     )
 
 
