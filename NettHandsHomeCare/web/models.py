@@ -1,7 +1,9 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from pendulum import now
 
+now = now(tz="America/Chicago")
 
 class ClientInterestSubmissions(models.Model):
     class SERVICES(models.TextChoices):
@@ -9,7 +11,7 @@ class ClientInterestSubmissions(models.Model):
         NONMEDICAL = "NM", _("Non-Medical Home Care")
         MEDICAL_SW = "MSW", _("Medical Social Work")
         OCCUP_THERAPY = "OT", _("Occupational Therapy")
-        PHYS_THERAPY = "PT", _("PHYSICAL Therapy")
+        PHYS_THERAPY = "PT", _("Physical Therapy")
         OTHER = "NA", _("Other")
 
     first_name = models.CharField(max_length=255)
@@ -31,6 +33,8 @@ class ClientInterestSubmissions(models.Model):
 
 
 class EmploymentApplicationModel(models.Model):
+    def __str__(self):
+        return f"{self.last_name}, {self.first_name} ({self.id}) - Submitted:{self.date_submitted}"
     class MOBILITTY(models.TextChoices):
         CAR = "C", _("I Have Consistent Access To A Car")
         PUBLIC = "P", _("I Use Public Transportation")

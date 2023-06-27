@@ -2211,7 +2211,8 @@ img#check{
   height: 60px;
   width: auto;
 }
-#interest-form>p {
+#interest-form>p,
+.application-text {
   color: #FFF;
 }
 section#interest-form {
