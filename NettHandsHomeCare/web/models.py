@@ -5,6 +5,7 @@ from pendulum import now
 
 now = now(tz="America/Chicago")
 
+
 class ClientInterestSubmissions(models.Model):
     class SERVICES(models.TextChoices):
         INTERMITTENT = "I", _("Intermittent Home Care")
@@ -16,6 +17,7 @@ class ClientInterestSubmissions(models.Model):
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    email = models.EmailField(null=True)
     contact_number = models.CharField(max_length=255)
     zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
     insurance_carrier = models.CharField(max_length=255)
@@ -35,6 +37,7 @@ class ClientInterestSubmissions(models.Model):
 class EmploymentApplicationModel(models.Model):
     def __str__(self):
         return f"{self.last_name}, {self.first_name} ({self.id}) - Submitted:{self.date_submitted}"
+
     class MOBILITTY(models.TextChoices):
         CAR = "C", _("I Have Consistent Access To A Car")
         PUBLIC = "P", _("I Use Public Transportation")
