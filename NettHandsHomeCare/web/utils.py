@@ -333,8 +333,7 @@ client_style_declarations = """
 
 			.image_block img.big,
 			.row-content {
-				width: 100% !important;
-			}
+				width: 100% !important; 
 
 			.mobile_hide {
 				display: none;
@@ -360,7 +359,7 @@ client_style_declarations = """
 			}
 		}
         """
-
+    
 client_body = f"""
     !DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
