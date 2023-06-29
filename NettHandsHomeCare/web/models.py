@@ -1,7 +1,10 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from localflavor.us.models import USStateField
+from localflavor.us.models import USZipCodeField
 from pendulum import now
+from phonenumber_field.modelfields import PhoneNumberField
 
 now = now(tz="America/Chicago")
 
@@ -18,8 +21,8 @@ class ClientInterestSubmissions(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(null=True)
-    contact_number = models.CharField(max_length=255)
-    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
+    contact_number = PhoneNumberField(region="US")
+    zipcode = USZipCodeField()
     insurance_carrier = models.CharField(max_length=255)
     desired_service = models.CharField(max_length=255, choices=SERVICES.choices)
     date_submitted = models.DateTimeField(auto_now_add=True)
@@ -53,12 +56,12 @@ class EmploymentApplicationModel(models.Model):
 
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    contact_number = models.CharField(max_length=255)
+    contact_number = PhoneNumberField(region="US")
     email = models.EmailField(max_length=254)
     home_address = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
-    state = models.CharField(max_length=255)
-    zipcode = models.PositiveIntegerField(validators=[MaxValueValidator(99999)])
+    state = USStateField(max_length=2)
+    zipcode = USZipCodeField()
     mobility = models.CharField(max_length=255, choices=MOBILITTY.choices)
     prior_experience = models.CharField(max_length=255, choices=PRIOREXPERIENCE.choices)
     availability_monday = models.BooleanField()

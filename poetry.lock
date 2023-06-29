@@ -190,6 +190,40 @@ files = [
 django = ">=3.2"
 
 [[package]]
+name = "django-localflavor"
+version = "4.0"
+description = "Country-specific Django helpers"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-localflavor-4.0.tar.gz", hash = "sha256:11859e522dba74aa6dde5a659242b1fbc5efb4dea08e9b77315402bdeca5194e"},
+    {file = "django_localflavor-4.0-py3-none-any.whl", hash = "sha256:7a5b1df03ca8e10df9d1b3c2e4314e43383067868183cdf41ab4e7a973694a8b"},
+]
+
+[package.dependencies]
+django = ">=3.2"
+python-stdnum = ">=1.6"
+
+[[package]]
+name = "django-phonenumber-field"
+version = "7.1.0"
+description = "An international phone number field for django models."
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-phonenumber-field-7.1.0.tar.gz", hash = "sha256:63721dbdc7424cd594a08d80f550e790cf6e7c903cbc0fb4dd9d86baac8b8c51"},
+    {file = "django_phonenumber_field-7.1.0-py3-none-any.whl", hash = "sha256:4eaab35fe9a163046dc3a47188771385c56a788e0e11b7bbcc662e1e6b7b9104"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+phonenumberslite = {version = ">=7.0.2", optional = true, markers = "extra == \"phonenumberslite\""}
+
+[package.extras]
+phonenumbers = ["phonenumbers (>=7.0.2)"]
+phonenumberslite = ["phonenumberslite (>=7.0.2)"]
+
+[[package]]
 name = "djlint"
 version = "1.31.0"
 description = "HTML Template Linter and Formatter"
@@ -416,6 +450,17 @@ python-dateutil = ">=2.6,<3.0"
 pytzdata = ">=2020.1"
 
 [[package]]
+name = "phonenumberslite"
+version = "8.13.15"
+description = "Python version of Google's common library for parsing, formatting, storing and validating international phone numbers."
+optional = false
+python-versions = "*"
+files = [
+    {file = "phonenumberslite-8.13.15-py2.py3-none-any.whl", hash = "sha256:87434233270bee76d6624f9e256688fa4c2ecb1b235f7c9275446b8978f7de8d"},
+    {file = "phonenumberslite-8.13.15.tar.gz", hash = "sha256:35e48d547c38b9e2d62d77a2f91ef628a98f184c474ce453dff001978312a16b"},
+]
+
+[[package]]
 name = "platformdirs"
 version = "3.8.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -560,6 +605,22 @@ files = [
 
 [package.extras]
 cli = ["click (>=5.0)"]
+
+[[package]]
+name = "python-stdnum"
+version = "1.18"
+description = "Python module to handle standardized numbers and codes"
+optional = false
+python-versions = "*"
+files = [
+    {file = "python-stdnum-1.18.tar.gz", hash = "sha256:bcc763d9c49ae23da5d2b7a686d5fd1deec9d9051341160a10d1ac723a26bec0"},
+    {file = "python_stdnum-1.18-py2.py3-none-any.whl", hash = "sha256:d7f2a3c7ef4635c957b9cbdd9b1993d1f6ee3a2959f03e172c45440d99f296eb"},
+]
+
+[package.extras]
+soap = ["zeep"]
+soap-alt = ["suds"]
+soap-fallback = ["PySimpleSOAP"]
 
 [[package]]
 name = "pytzdata"
@@ -815,4 +876,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "35c9d03bc610eb841a256e12ba6244af4eae255391ad88377f41af039457ce57"
+content-hash = "599a2d9f5ccf68ee4c997082f8dd68b9bd4f91069c392818e13f279257243aac"
