@@ -2224,5 +2224,12 @@ form {
   width: 33.33%;
 }
 .submission-sub-text {
-  color: #673ab7; 
+  color: #673ab7;
+}
+input:valid {
+  background-color: #98fb98;
+}
+
+input:invalid {
+  background-color:#ffb6c1;
 }

@@ -13,6 +13,8 @@ psycopg2-binary = "^2.9.6"
 django-crispy-forms = "^2.0"
 crispy-bootstrap4 = "^2022.1"
 pendulum = "^2.1.2"
+django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.1.0"}
+django-localflavor = "^4.0"
 
 [tool.poetry.group.dev.dependencies]
 icecream = "^2.1.3"

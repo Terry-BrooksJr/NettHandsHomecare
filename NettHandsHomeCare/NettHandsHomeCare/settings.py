@@ -21,6 +21,8 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     "web",
     "portal",
+    "phonenumber_field",
+    "localflavor",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
