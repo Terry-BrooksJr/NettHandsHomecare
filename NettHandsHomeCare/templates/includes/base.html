@@ -40,8 +40,8 @@
                 <div class="col-sm-4 col-lg-2 col-3">
                     <div class="navbar-brand">
 
-                       {% if title == "Home" or "About Nett Hands" %}
-                         <a href="{% url 'index' %}"><img src="{% static 'img/logo-dark.png' %}" alt=""></a>
+                       {% if title == "Home" %}
+                         <a href="{% url 'index' %}"><img src="{% static 'img/logo-dark.png' %}" alt="LOGO"></a>
                      </div>
                  </div>
                  <div class="col-lg-10">
@@ -51,20 +51,12 @@
                                  <li class="active"><a href="{% url 'index' %}">Home</a></li>
                                  <li><a href="{% url 'about' %}">About Nett Hands</a></li>
                                  <li><a href="#impact">Our Impact</a></li>
-                                 <li><a href="">Services</a>
-                                     <ul class="dropdown">
-                                         <li><a href="">Skilled Nursing</a></li>
-                                         <li><a href="">Physical Therapy</a></li>
-                                         <li><a href="">Occupational Therapy</a></li>
-                                         <li><a href="">Speech Therapy</a></li>
-                                         <li><a href="">Medical Social Work</a></li>
-                                      <li><a href="">Home Health Aide</a></li>
-                                    </ul>
+                                 <li><a href="#services">Services</a>
                                  </li>
                                  <li><a href="#careers">Careers</a>
                                      <ul class="dropdown">
                                          <li><a href="{% url 'application' %}">Employee Interest Application</a></li>
-                                         <li><a href="">Employee Portal</a></li>
+                                         <li><a href="{% url 'login' %}">Employee Portal</a></li>
                                      </ul>
                                  </li>
                                  <li><a href="#contact">Contact</a></li>
@@ -77,26 +69,7 @@
                      <div class="header__nav__option">
                          <nav class="header__nav__menu mobile-menu">
                              <ul>
-                                 <li class="active"><a href="{% url 'index' %}">Home</a></li>
-                                 <li><a href="{% url 'about' %}">About Nett Hands</a></li>
-                                 <li><a href="index/#impact">Our Impact</a></li>
-                                 <li><a href="">Services</a>
-                                     <ul class="dropdown">
-                                         <li><a href="">Skilled Nursing</a></li>
-                                         <li><a href="">Physical Therapy</a></li>
-                                         <li><a href="">Occupational Therapy</a></li>
-                                         <li><a href="">Speech Therapy</a></li>
-                                         <li><a href="">Medical Social Work</a></li>
-                                      <li><a href="">Home Health Aide</a></li>
-                                    </ul>
-                                 </li>
-                                 <li><a href="index/#careers">Careers</a>
-                                     <ul class="dropdown">
-                                         <li><a href="{% url 'application' %}">Employee Interest Application</a></li>
-                                         <li><a href="">Employee Portal</a></li>
-                                     </ul>
-                                 </li>
-                                 <li><a href="/#contact">Contact</a></li>
+                                 <li class="active"><a href="{% url 'index' %}">Back to Home</a></li>
                              </ul>
 
                        {% endif %}
@@ -135,7 +108,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="contact__widget__item">
                             <div class="contact__widget__item__icon">
-                                <i class="fa fa-map-marker"></i>
+                                <i class="fa fa-envelope"></i>
                             </div>
                             <div class="contact__widget__item__text">
                                 <h4>Email</h4>
@@ -169,7 +142,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="footer__option__item">
                             <h5>About us</h5>
-                            <p>Formed in XXXX by Licensed Clinical Nurses Bernedette Perry and Jorie Perry, Nett Hands
+                            <p>Formed in XXXX by Licensed Clinical Nurses Bernedette Berry and Marjorie Berry, Nett Hands
                                 Homecare is a full-service home healthcare agency with specialization intermittent
                                 medical homecare. Serving the entire Chicagoland area, Cook County and surrounding
                                 suburban counties.</p>
@@ -182,7 +155,7 @@
                             <ul>
                                 <li><a href="{% url 'application' %}">Employment Application</a></li>
                                 <li><a href="{% url 'client-interest'%}">Client Interest Form</a></li>
-                                <li><a href="#">Employee Portal</a></li>
+                                <li class="disabled"><a href="{% url 'login' %}">Employee Portal</a></li>
                             </ul>
                             <br>
 
@@ -192,8 +165,8 @@
                         <div class="footer__option__item">
                             <h5>Our Services</h5>
                             <ul>
-                                <li><a href="#">Intermittent Homecare</a></li>
-                                <li><a href="#">Non-Medical Homecare</a></li>
+                                <li><a href="#services">Intermittent Homecare</a></li>
+                                <li><a href="#services">Non-Medical Homecare</a></li>
                             </ul>
                         </div>
                     </div>
