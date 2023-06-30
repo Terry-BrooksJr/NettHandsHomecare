@@ -190,6 +190,21 @@ files = [
 django = ">=3.2"
 
 [[package]]
+name = "django-debug-toolbar"
+version = "4.1.0"
+description = "A configurable set of panels that display various debug information about the current request/response."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_debug_toolbar-4.1.0-py3-none-any.whl", hash = "sha256:a0b532ef5d52544fd745d1dcfc0557fa75f6f0d1962a8298bd568427ef2fa436"},
+    {file = "django_debug_toolbar-4.1.0.tar.gz", hash = "sha256:f57882e335593cb8e74c2bda9f1116bbb9ca8fc0d81b50a75ace0f83de5173c7"},
+]
+
+[package.dependencies]
+django = ">=3.2.4"
+sqlparse = ">=0.2"
+
+[[package]]
 name = "django-localflavor"
 version = "4.0"
 description = "Country-specific Django helpers"
@@ -876,4 +891,4 @@ test = ["covdefaults (>=2.3)", "coverage (>=7.2.7)", "coverage-enable-subprocess
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "599a2d9f5ccf68ee4c997082f8dd68b9bd4f91069c392818e13f279257243aac"
+content-hash = "425b2b21bce379e566f35948a735a5561361e5ac1f8b63e14dbe4a170ebabfa1"

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "portal",
     "phonenumber_field",
     "localflavor",
+    "debug_toolbar",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -34,6 +35,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 ROOT_URLCONF = "NettHandsHomeCare.urls"
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")

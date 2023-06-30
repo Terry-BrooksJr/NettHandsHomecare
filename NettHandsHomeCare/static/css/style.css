@@ -1009,6 +1009,9 @@ ol {
   margin-right: 32px;
   position: relative;
 }
+.disabled{
+  color: #d3d3d3;
+}
 .breadcrumb__links a:after {
   position: absolute;
   right: -22px;
