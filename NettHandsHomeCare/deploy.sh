@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if pip install -r requirements.txt; then
+if poetry install; then
     # if cd NettHandsHomeCare; then
         if python manage.py collectstatic --noinput; then
             if python manage.py makemigrations; then
