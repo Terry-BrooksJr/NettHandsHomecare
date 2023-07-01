@@ -12,7 +12,6 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from dotenv import load_dotenv
-from icecream import ic
 from web.models import ClientInterestSubmissions
 from web.models import EmploymentApplicationModel
 
