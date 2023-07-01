@@ -65,17 +65,16 @@ TEMPLATES = [
 ]
 AUTH_USER_MODEL = "portal.Employee"  # Add this
 WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": os.environ.get("DB_NAME"),
-#         "USER": os.environ.get("DB_USER"),
-#         "PASSWORD": os.environ.get("DB_PASSWORD"),
-#         "HOST": os.environ.get("DB_HOST"),
-#         "PORT": os.environ.get("DB_PORT"),
-#     },
-# }
-DATABASES = "postgres://admin:4MbCiQvNlmNkM5KOVKogrIWjb3TsCoNW@dpg-cig3aqd9aq012etbudd0-a/prod_netthandshomecare"
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
+    },
+}
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
