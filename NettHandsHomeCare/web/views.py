@@ -9,7 +9,6 @@ from string import Template
 from django.shortcuts import redirect
 from django.shortcuts import render
 from dotenv import load_dotenv
-from icecream import ic
 from web.forms import ClientInterestForm
 from web.forms import EmploymentApplicationForm
 from web.utils import application_body
