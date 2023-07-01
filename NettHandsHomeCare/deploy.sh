@@ -2,7 +2,7 @@
 
 if pip install -r requirements.txt; then
     # if cd NettHandsHomeCare; then
-        if python manage.py collectstatic -y; then
+        if python manage.py collectstatic --noinput; then
             if python manage.py makemigrations; then
                 if python manage.py migrate; then
                     if ! python manage.py runserver; then
