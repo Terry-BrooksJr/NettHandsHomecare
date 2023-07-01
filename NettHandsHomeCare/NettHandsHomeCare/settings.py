@@ -28,7 +28,6 @@ INSTALLED_APPS = [
     "portal",
     "phonenumber_field",
     "localflavor",
-    "debug_toolbar",
 ]
 STORAGES = {
     # ...
