@@ -71,6 +71,10 @@ class EmploymentApplicationForm(forms.ModelForm):
                 Column("prior_experience", css_class="form-group col-md-6 mb-0"),
                 css_class="form-row",
             ),
+            Row(
+                Column("ipdh_registered", css_class="form-group col-md-12 mb-0"),
+                css_class="form-row",
+            ),
             HTML("""<h3 class="application-text">Work Availability</h3>"""),
             Row(
                 Column("availability_monday", css_class="form-group col-md-3 mb-0"),
@@ -102,6 +106,7 @@ class EmploymentApplicationForm(forms.ModelForm):
             "state",
             "zipcode",
             "mobility",
+            "ipdh_registered",
             "prior_experience",
             "availability_monday",
             "availability_tuesday",
@@ -112,6 +117,9 @@ class EmploymentApplicationForm(forms.ModelForm):
             "availability_sunday",
         )
         labels = {
+            "ipdh_registered": _(
+                "Currently Registered With the IPDH Health Care Worker Registry",
+            ),
             "availability_monday": _("Monday"),
             "availability_tuesday": _("Tuesday"),
             "availability_wednesday": _("Wednesday"),

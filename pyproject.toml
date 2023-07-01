@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "netthandshomecare"
 version = "0.1.0"
-description = "Front-End website and web application for Nett Hands Homecare"
+description = "Front-End website and web application for Nett Hands Home care"
 authors = ["Terry Brooks, Jr. <Terry.Arthur@BrooksJr.com>"]
 readme = "README.md"
 
@@ -15,6 +15,7 @@ crispy-bootstrap4 = "^2022.1"
 pendulum = "^2.1.2"
 django-phonenumber-field = {extras = ["phonenumberslite"], version = "^7.1.0"}
 django-localflavor = "^4.0"
+whitenoise = "^6.5.0"
 
 [tool.poetry.group.dev.dependencies]
 icecream = "^2.1.3"

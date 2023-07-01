@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="{% static '/img/favicon.png' %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nett Hands Homecare - {{ title }}</title>
+    <title>Nett Hands Home Care - {{ title }}</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap" rel="stylesheet">
@@ -69,7 +69,7 @@
                      <div class="header__nav__option">
                          <nav class="header__nav__menu mobile-menu">
                              <ul>
-                                 <li class="active"><a href="{% url 'index' %}">Back to Home</a></li>
+                                 <li class="active"><a href="{% url 'index' %}"><span class="back-to-home">Back to Home</span></a></li>
                              </ul>
 
                        {% endif %}
@@ -142,9 +142,7 @@
                     <div class="col-lg-4 col-md-6 col-sm-6">
                         <div class="footer__option__item">
                             <h5>About us</h5>
-                            <p>Formed in XXXX by Licensed Clinical Nurses Bernedette Berry and Marjorie Berry, Nett Hands
-                                Homecare is a full-service home healthcare agency with specialization intermittent
-                                medical homecare. Serving the entire Chicagoland area, Cook County and surrounding
+                            <p>Nett Hands Home Care is a State of Illinois Department of Public Health licensed home health care agency. We are bonded and insured. All of our in-home care providers are extremely understanding, skilled and experienced in caring for you in the comfort of your home. Serving the entire Chicagoland area, Cook County and surrounding
                                 suburban counties.</p>
                             <a href="{% url 'about' %}" class="read__more">Read more <span class="arrow_right"></span></a>
                         </div>
@@ -165,8 +163,8 @@
                         <div class="footer__option__item">
                             <h5>Our Services</h5>
                             <ul>
-                                <li><a href="#services">Intermittent Homecare</a></li>
-                                <li><a href="#services">Non-Medical Homecare</a></li>
+                                <li><a href="#services">Intermittent Home Care</a></li>
+                                <li><a href="#services">Non-Medical Home Care</a></li>
                             </ul>
                         </div>
                     </div>

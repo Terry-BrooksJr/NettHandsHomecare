@@ -64,6 +64,7 @@ class EmploymentApplicationModel(models.Model):
     zipcode = USZipCodeField()
     mobility = models.CharField(max_length=255, choices=MOBILITTY.choices)
     prior_experience = models.CharField(max_length=255, choices=PRIOREXPERIENCE.choices)
+    ipdh_registered = models.BooleanField(default=False)
     availability_monday = models.BooleanField()
     availability_tuesday = models.BooleanField()
     availability_wednesday = models.BooleanField()

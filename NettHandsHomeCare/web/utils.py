@@ -137,7 +137,7 @@ application_body = f"""
     <td class="pad" style="padding-bottom:5px;padding-left:5px;padding-right:5px;">
     <div style="font-family: sans-serif">
     <div class="" style="font-size: 14px; font-family: Verdana, Geneva, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
-    <p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Nett Hands Homecare</span></strong></p>
+    <p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Nett Hands Home Care</span></strong></p>
     </div>
     </div>
     </td>
@@ -195,7 +195,7 @@ application_body = f"""
     <tr>
     <td class="pad">
     <div style="color:#101112;direction:ltr;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
-    <p style="margin: 0; margin-bottom: 16px;"><span style="color: #ffffff;">Thanks for taking the time to apply as a Home Health Caregiver with Nett Hands Homecare! </span></p>
+    <p style="margin: 0; margin-bottom: 16px;"><span style="color: #ffffff;">Thanks for taking the time to apply as a Home Health Caregiver with Nett Hands Home Care! </span></p>
     <p style="margin: 0; margin-bottom: 16px;"><span style="color: #ffffff;">This role is the lifeblood of our organization, and we take recruitment very seriously.<br/><br/>We're currently in the process of taking applications for this position. </span></p>
     <p style="margin: 0;"><span style="color: #ffffff;">If you are selected to continue to the interview process, our human resources department will be in contact within 24 to 48 business hours.<br/><br/>Thank you,</span></p>
     </div>
@@ -207,7 +207,7 @@ application_body = f"""
     <tr>
     <td class="pad">
     <div style="color:#101112;direction:ltr;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:32px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:38.4px;">
-    <p style="margin: 0;"><span style="color: #ffffff;">Nett Hands Homecare Recruiting</span></p>
+    <p style="margin: 0;"><span style="color: #ffffff;">Nett Hands Home Care Recruiting</span></p>
     </div>
     </td>
     </tr>
@@ -333,7 +333,7 @@ client_style_declarations = """
 
 			.image_block img.big,
 			.row-content {
-				width: 100% !important; 
+				width: 100% !important;
 
 			.mobile_hide {
 				display: none;
@@ -359,7 +359,7 @@ client_style_declarations = """
 			}
 		}
         """
-    
+
 client_body = f"""
     !DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
@@ -433,7 +433,7 @@ client_body = f"""
 															<td class="pad" style="padding-bottom:5px;padding-left:5px;padding-right:5px;">
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 14px; font-family: Verdana, Geneva, sans-serif; mso-line-height-alt: 16.8px; color: #ffffff; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Nett Hands Homecare</span></strong></p>
+																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Nett Hands Home Care</span></strong></p>
 																	</div>
 																</div>
 															</td>
@@ -493,7 +493,7 @@ client_body = f"""
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:Verdana, Geneva, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0;"><strong><span style="color: #ffffff;">Future Nett Hands Homecare Patient,</span></strong></p>
+																	<p style="margin: 0;"><strong><span style="color: #ffffff;">Future Nett Hands Home Care Patient,</span></strong></p>
 																</div>
 															</td>
 														</tr>
@@ -502,7 +502,7 @@ client_body = f"""
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:16px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:center;mso-line-height-alt:19.2px;">
-																	<p style="margin: 0; margin-bottom: 16px;"><strong><span style="color: #ffffff;">We are so excited that you are considering joining our Nett Hands Homecare family! </span></strong></p>
+																	<p style="margin: 0; margin-bottom: 16px;"><strong><span style="color: #ffffff;">We are so excited that you are considering joining our Nett Hands Home Care family! </span></strong></p>
 																	<p style="margin: 0; margin-bottom: 16px;">&nbsp;</p>
 																	<p style="margin: 0; margin-bottom: 16px;"><span style="color: #ffffff;">We truly care about our patients and their well-being, so you can trust that we will provide the best possible care for you or your loved ones.&nbsp;</span></p>
 																	<p style="margin: 0; margin-bottom: 16px;">&nbsp;</p>
@@ -518,7 +518,7 @@ client_body = f"""
 														<tr>
 															<td class="pad">
 																<div style="color:#101112;direction:ltr;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:32px;font-weight:400;letter-spacing:0px;line-height:120%;text-align:left;mso-line-height-alt:38.4px;">
-																	<p style="margin: 0;"><span style="color: #ffffff;">Nett Hands Homecare Recruiting</span></p>
+																	<p style="margin: 0;"><span style="color: #ffffff;">Nett Hands Home Care Recruiting</span></p>
 																</div>
 															</td>
 														</tr>

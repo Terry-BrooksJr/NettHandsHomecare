@@ -85,7 +85,7 @@ def send_internal_application_submission_confirmation(form):
     """Internal Non-Rendering View Function to send email notification of the submissions of client interest and employment application forms"""
     try:
         sender_email = os.getenv("NOTIFICATION_SENDER_EMAIL")
-        recipient_email = os.getenv("NOTIFICATION_SUBMISSION_EMAIL")
+        recipient_email = os.getenv("NOTIFICATION_Application_SUBMISSION_EMAIL")
         sender_password = os.getenv("EMAIL_ACCT_PASSWORD")
         subject = f"New Employment Interest - {form.cleaned_data['last_name']}, {form.cleaned_data['first_name']}"
         message = EmailMessage()
@@ -186,7 +186,7 @@ def send_internal_client_submission_confirmation(form):
     """
     try:
         sender_email = os.getenv("NOTIFICATION_SENDER_EMAIL")
-        recipient_email = os.getenv("NOTIFICATION_SUBMISSION_EMAIL")
+        recipient_email = os.getenv("NOTIFICATION_CLIENT_SUBMISSION_EMAIL")
         sender_password = os.getenv("EMAIL_ACCT_PASSWORD")
         subject = f"New Client Interest - {form.cleaned_data['last_name']}, {form.cleaned_data['first_name']}"
         message = EmailMessage()
