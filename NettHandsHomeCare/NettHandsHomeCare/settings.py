@@ -12,11 +12,9 @@ DEBUG = True
 SECURE_SSL_REDIRECT=False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ""]
+
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "nett-hands-site-and-portal.onrender.com", "www.netthandshome.care"]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
