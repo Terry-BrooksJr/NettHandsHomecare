@@ -246,8 +246,8 @@ def client_interest(request):
         # check whether it's valid:
         if form.is_valid():
             form.save()
-            ic(send_external_client_submission_confirmation(form))
-            ic(send_internal_client_submission_confirmation(form))
+            send_external_client_submission_confirmation(form)
+            send_internal_client_submission_confirmation(form)
             return redirect("submitted")
     # if a GET (or any other method) we'll create a blank form
     else:
@@ -276,8 +276,8 @@ def employee_interest(request):
         # check whether it's valid:
         if form.is_valid():
             form.save()
-            ic(send_internal_application_submission_confirmation(form))
-            ic(send_external_application_submission_confirmation(form))
+            send_internal_application_submission_confirmation(form)
+            send_external_application_submission_confirmation(form)
             return redirect("submitted")
 
     # if a GET (or any other method) we'll create a blank form
