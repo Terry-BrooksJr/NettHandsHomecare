@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if poetry install --without dev; then
+if poetry install --no-dev; then
     # if cd NettHandsHomeCare; then
         if python manage.py collectstatic --noinput; then
             if python manage.py makemigrations; then
