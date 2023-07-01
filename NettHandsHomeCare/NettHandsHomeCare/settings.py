@@ -75,7 +75,7 @@ WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
 #         "PORT": os.environ.get("DB_PORT"),
 #     },
 # }
-DATABASE = "postgres://admin:4MbCiQvNlmNkM5KOVKogrIWjb3TsCoNW@dpg-cig3aqd9aq012etbudd0-a/prod_netthandshomecare"
+DATABASES = "postgres://admin:4MbCiQvNlmNkM5KOVKogrIWjb3TsCoNW@dpg-cig3aqd9aq012etbudd0-a/prod_netthandshomecare"
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
