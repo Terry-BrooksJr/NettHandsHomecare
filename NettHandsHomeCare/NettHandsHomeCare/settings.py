@@ -98,3 +98,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "static/vendor"]
 DATETIME_FORMAT = "%m-%d-%Y"
 STATIC_ROOT = f"{BASE_DIR}/static/assets"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
