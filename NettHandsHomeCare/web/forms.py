@@ -64,7 +64,7 @@ class EmploymentApplicationForm(forms.ModelForm):
                 Column("zipcode", css_class="form-group col-md-2 mb-0"),
                 css_class="form-row ",
             ),
-            HTML("""<h3 class="application-text">Professional Experience</h3>"""),
+            HTML("""<h3 class="application-text">Relevant Experience</h3>"""),
             Row(
                 Column("mobility", css_class="form-group col-md-6 mb-0"),
                 Column("prior_experience", css_class="form-group col-md-6 mb-0"),
