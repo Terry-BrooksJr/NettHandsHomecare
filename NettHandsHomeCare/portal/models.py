@@ -35,14 +35,18 @@ class Employee(AbstractUser):
         default=GENDER.NON_GENDERED,
     )
 
-    social_security = USSocialSecurityNumberField(unique=True)
-    street_address = models.CharField(max_length=255, default="")
-    city = models.CharField(max_length=255, default="")
-    state = USStateField()
-    zipcode = USZipCodeField()
-    in_compliance = models.BooleanField(default=False)
+    social_security = USSocialSecurityNumberField(unique=True,  null=True)
+    street_address = models.CharField(max_length=255, default="", null=True)
+    city = models.CharField(max_length=255, default="",  null=True)
+    phone = PhoneNumberField(null=True)
+    state = USStateField(null=True)
+    zipcode = USZipCodeField(null=True)
+    job_title = models.CharField(null=True)
+    hire_date = models.DateField(null=True)
+    in_compliance = models.BooleanField(default=False,  null=True)
     employment_status = models.CharField(
         max_length=255,
+         null=True,
         choices=EMPLOYMENT_STATUS.choices,
         default=EMPLOYMENT_STATUS.ACTIVE,
     )
@@ -51,4 +55,4 @@ class Employee(AbstractUser):
     # training_history = models.L
 
     def __str__(self):
-        return f"{self.last_name}, {self.first_name} ({self.username}-{self.employment_status})"
+        return f"{self.last_name}, {self.first_name} ({self.username}-{self.job_title})"

@@ -2238,5 +2238,23 @@ input:invalid {
 }
 .back-to-home {
   color: #fff;
+}
 
+h3.out-of-compliance {
+  color: #ff0000;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1, 1);
+    }
+
+    50% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
 }
