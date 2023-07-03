@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+from portal.models import Employee
 
 
 @login_required(login_url="/login/")
@@ -39,3 +40,12 @@ def pages(request):
     except:
         html_template = loader.get_template("home/page-500.html")
         return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url="/login/")
+def update_profile(request, id):
+    user = Employee.objects.get(id=id)
+    if request.method == "POST":
+        if form.is_valid():
+            form.save(commit=True)
+            return HttpResponseRedirect("/profile")

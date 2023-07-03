@@ -35,21 +35,16 @@ class Employee(AbstractUser):
         default=GENDER.NON_GENDERED,
     )
 
-    social_security = USSocialSecurityNumberField(unique=True,  null=True)
+    social_security = USSocialSecurityNumberField(unique=True, null=True)
     street_address = models.CharField(max_length=255, default="", null=True)
-    city = models.CharField(max_length=255, default="",  null=True)
+    city = models.CharField(max_length=255, default="", null=True)
     phone = PhoneNumberField(null=True)
     state = USStateField(null=True)
     zipcode = USZipCodeField(null=True)
-    job_title = models.CharField(null=True)
+    pre_service_completion_date = models.DateField(null=True, blank=True)
+    job_title = models.CharField(null=True, blank=True)
     hire_date = models.DateField(null=True)
-    in_compliance = models.BooleanField(default=False,  null=True)
-    employment_status = models.CharField(
-        max_length=255,
-         null=True,
-        choices=EMPLOYMENT_STATUS.choices,
-        default=EMPLOYMENT_STATUS.ACTIVE,
-    )
+    in_compliance = models.BooleanField(default=False, null=True)
 
     # TODO: Implement List Field - Lists All Training History (Assessments Model Ref)
     # training_history = models.L
