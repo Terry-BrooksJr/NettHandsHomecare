@@ -1,7 +1,7 @@
-{% extends 'layouts/base.html' %}
+{% extends "layouts/base.html" %}
 {% load static %}
 {% block title %} Profile {% endblock title %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
 <div class="header pb-6 d-flex align-items-center"
@@ -26,7 +26,7 @@
   <div class="row">
     <div class="col-xl-4 order-xl-2">
       <div class="card card-profile">
-        <img src="/static/img/theme/img-1-1000x600.jpg" alt="Image placeholder" class="card-img-top">
+        <img src="{% static 'img/theme/img-1-1000x600.jpg' %}" alt="Image placeholder" class="card-img-top"/>
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
           </div>
@@ -41,6 +41,7 @@
               {{ request.user.job_title }}
             </div>
             <div>
+              {# djlint:off H021 #}
               {% if request.user.in_compliance is False %}
               <h3  style="color: #ff0000" class="animate__animated animate__pulse animate__infinite">You Have Pending Training Task</h3>
               {% endif %}
@@ -49,6 +50,8 @@
               {% else %}
               <h3>Pre-Service Completion Date: <span style="color: #50C878">{{ request.user.pre_service_completion_date }}</span> </h3>
               {% endif %}
+              {# djlint:on #}
+
             </div>
           </div>
         </div>
@@ -64,7 +67,11 @@
           </div>
         </div>
         <div class="card-body">
-          <form id="employee-profile" action="/update-profile" method="POST">
+{% csrf_token %}
+{% crispy form %}
+                    {% comment %} 
+
+         <form id="employee-profile" action="/update-profile" method="POST">
             <h6 class="heading-small text-muted mb-4">User information</h6>
             <div class="pl-lg-4">
               <div class="row">
@@ -81,7 +88,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+             <div class="row">
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label class="form-control-label" for="first-name">First name</label>
@@ -114,13 +121,13 @@
                     <input type="text" id="job_title" name="job_title" class="form-control" placeholder="Last name" value="{{ request.user.job_title }}" readonly>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> {
+        </div>
             <hr class="my-4" />
             <!-- Address -->
             <h6 class="heading-small text-muted mb-4">Contact information</h6>
             <div class="pl-lg-4">
-              <div class="row">
+            <div class="row">
                 <div class="col-md-12">
                   <div class="form-group">
                     <label class="form-control-label" for="input-address">Address</label>
@@ -128,7 +135,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+            <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="city">City</label>
@@ -147,8 +154,8 @@
                     <input type="number" id="zipcode"  name="zipcode" class="form-control editable" placeholder="{{ request.user.zipcode }}" readonly>
                   </div>
                 </div>
-              </div>
-               <div class="row">
+              </div> {
+                <div class="row">
                 <div class="col-lg-4">
                   <div class="form-group">
                     <label class="form-control-label" for="phone">Phone</label>
@@ -177,7 +184,7 @@
                   <button style="margin-left: 30px" class='btn btn-danger' id="cancel-edits-btn" hidden>Cancel</button>
     </div>
   </div>
-          </form>
+          </form> {% endcomment %}
             <hr class="my-4" />
             <!-- Description -->
             <h6 class="heading-small text-muted mb-4">Training and Certification</h6>
@@ -186,7 +193,6 @@
       </div>
     </div>
   </div>
-
 
   {% include "includes/footer.html" %}
 

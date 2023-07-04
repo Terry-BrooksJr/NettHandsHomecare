@@ -10,15 +10,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
 if DEBUG is True:
-    SECURE_SSL_REDIRECT=False
+    SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
-else: 
-    SECURE_SSL_REDIRECT=True
+else:
+    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "nett-hands-site-and-portal.onrender.com", "www.netthandshome.care"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "nett-hands-site-and-portal.onrender.com",
+    "www.netthandshome.care",
+]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
