@@ -1,8 +1,3 @@
-import os
-import smtplib
-from email.message import EmailMessage
-from email.mime.text import MIMEText
-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column
 from crispy_forms.layout import HTML
@@ -11,11 +6,8 @@ from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from dotenv import load_dotenv
 from web.models import ClientInterestSubmissions
 from web.models import EmploymentApplicationModel
-
-load_dotenv()
 
 
 class ClientInterestForm(forms.ModelForm):

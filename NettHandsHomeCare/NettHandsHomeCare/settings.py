@@ -9,12 +9,21 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = True
-SECURE_SSL_REDIRECT=False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+if DEBUG is True:
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+else:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
-
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "nett-hands-site-and-portal.onrender.com", "www.netthandshome.care"]
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "localhost",
+    "nett-hands-site-and-portal.onrender.com",
+    "www.netthandshome.care",
+]
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -65,14 +74,18 @@ TEMPLATES = [
 AUTH_USER_MODEL = "portal.Employee"  # Add this
 WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": os.environ.get("DB_NAME"),
+    #     "USER": os.environ.get("DB_USER"),
+    #     "PASSWORD": os.environ.get("DB_PASSWORD"),
+    #     "HOST": os.environ.get("DB_HOST"),
+    #     "PORT": os.environ.get("DB_PORT"),
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.sqlite3",
         "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
     },
+    # },
 }
 AUTH_PASSWORD_VALIDATORS = [
     {
