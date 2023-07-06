@@ -2,23 +2,34 @@
         Profile Editabiity Toggle
     -------*/
     const editProfileButton = document.getElementById("edit-button")
-    const cancelChangesButton = document.getElementById("cancel-edits-btn")
+    const cancelChangesButton = document.getElementById("reset-id-cancel")
+    const saveChangeButton = document.getElementById("submit-id-save")
 
-    function makeProfileEdits(){
+    function makeProfileEditable(){
         const editableFields = document.querySelectorAll('.editable')
         editableFields.forEach((field) => {
             field.removeAttribute('readonly')
         })
-        const saveChangeButton = document.getElementById("save-changes-btn")
         saveChangeButton.removeAttribute('hidden')
         cancelChangesButton.removeAttribute('hidden')
         editProfileButton.hidden = true
     }
 
     function cancelPendingEdits(){
-        const employeeProfile = document.getElementById("employee-profile")
-        employeeProfile.reset()
+        window.location.reload();
+    }
 
+    function makeProfileUnEditable(){
+        const editableFields = document.querySelectorAll('.editable')
+        console.log('Called')
+        editableFields.forEach((field) => {
+            console.log(field)
+            field.disabled = true
+            console.log(`${field} is disabled`)
+        })
+        cancelChangesButton.hidden = true
+        saveChangeButton.hidden = true
     }
 cancelChangesButton.addEventListener('click', cancelPendingEdits )
-editProfileButton.addEventListener('click', makeProfileEdits )
+editProfileButton.addEventListener('click', makeProfileEditable )
+window.addEventListener('load', makeProfileUnEditable)

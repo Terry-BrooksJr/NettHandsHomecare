@@ -1,9 +1,9 @@
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Button
 from crispy_forms.layout import Column
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Layout
+from crispy_forms.layout import Reset
 from crispy_forms.layout import Row
 from crispy_forms.layout import Submit
 from django import forms
@@ -186,14 +186,14 @@ class EmployeeForm(forms.ModelForm):
                 Column(
                     "emergency_contact_relationship",
                     readonly=True,
-                    css_class="form-group col-lg-4 mb-0 editable ",
+                    css_class="form-group col-lg-8 mb-0 editable ",
                 ),
                 css_class="form-row",
             ),
             Row(
                 FormActions(
                     Submit("save", "Save changes", id="edit-button"),
-                    Button(
+                    Reset(
                         "cancel",
                         "Cancel",
                         css_class="btn btn-danger",
