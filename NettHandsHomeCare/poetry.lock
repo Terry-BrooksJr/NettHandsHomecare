@@ -176,6 +176,17 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-2-collectionfield"
+version = "0.0.4"
+description = "Custom Django model field to store multiple values. Updated from original library to support Django 2."
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-2-collectionfield-0.0.4.tar.gz", hash = "sha256:9345527a7bf414431d80e06e4781bf879e36481c9ce3a312c43387b919cdd256"},
+    {file = "django_2_collectionfield-0.0.4-py2.py3-none-any.whl", hash = "sha256:1c255ee71dac55658a8cd024dcd552514d513d025782cc895647153cd22a28a6"},
+]
+
+[[package]]
 name = "django-crispy-forms"
 version = "2.0"
 description = "Best way to have Django DRY forms"
@@ -925,4 +936,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "0c550e57544ce0a0a0e0a41c108706424aea1da73f9f877ed77ae42c54a34255"
+content-hash = "eb118442f6d99cd986409e27936d95950071d5b52a382c98a6d2cba55d10ace6"

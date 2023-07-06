@@ -2,8 +2,12 @@
 {% load static %}
 {% block title %} Profile {% endblock title %}
 {% load crispy_forms_tags %}
-{% block content %}
+{% block stylesheets %}
 
+  <link rel="stylesheet" href="{% static 'css/custom-portal-styles.css' %}" type="text/css"/>
+{% endblock stylesheets %}
+
+{% block content %}
 <div class="header pb-6 d-flex align-items-center"
      style="min-height: 500px; background-image: url({% static 'img/profile-banner.png' %}); background-size: cover; background-position: center top;">
   <!-- Mask -->
@@ -26,7 +30,7 @@
   <div class="row">
     <div class="col-xl-4 order-xl-2">
       <div class="card card-profile">
-        <img src="{% static 'img/theme/img-1-1000x600.jpg' %}" alt="Image placeholder" class="card-img-top"/>
+        <img src="{% static 'img/profile-card-image.png' %}" alt="Image placeholder" class="card-img-top"/>
         <div class="row justify-content-center">
           <div class="col-lg-3 order-lg-2">
           </div>
@@ -43,12 +47,12 @@
             <div>
               {# djlint:off H021 #}
               {% if request.user.in_compliance is False %}
-              <h3  style="color: #ff0000" class="animate__animated animate__pulse animate__infinite">You Have Pending Training Task</h3>
+              <h3  class="animate__animated red animate__pulse animate__infinite">You Have Pending Training Task</h3>
               {% endif %}
               {% if request.user.pre_service_completion_date is None %}
-              <h3>Pre-Service Completion Date: <span style="color: #ff0000">Incomplete</span> </h3>
+              <h3>Pre-Service Completion Date: <span class="red">Incomplete</span> </h3>
               {% else %}
-              <h3>Pre-Service Completion Date: <span style="color: #50C878">{{ request.user.pre_service_completion_date }}</span> </h3>
+              <h3>Pre-Service Completion Date: <br/> <span class="green">{{ request.user.pre_service_completion_date }}</span> </h3>
               {% endif %}
               {# djlint:on #}
 
@@ -67,124 +71,19 @@
           </div>
         </div>
         <div class="card-body">
-{% csrf_token %}
-{% crispy form %}
-                    {% comment %} 
-
-         <form id="employee-profile" action="/update-profile" method="POST">
-            <h6 class="heading-small text-muted mb-4">User information</h6>
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="username">Username</label>
-                    <input type="text" id="username" class="form-control" placeholder="Username" value="{{ request.user.username }}" 	readonly>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="email">Email address</label>
-                    <input type="email" id="email" class="form-control editable" placeholder="{{ request.user.email }}" readonly>
-                  </div>
-                </div>
-              </div>
-             <div class="row">
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="first-name">First name</label>
-                    <input type="text" id="first-name" class="form-control editable" placeholder="First name" value="{{ request.user.first_name }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="form-group">
-                    <label class="form-control-label" for="last-name">Last name</label>
-                    <input type="text" id="last-name" class="form-control editable" placeholder="Last name" value="{{ request.user.last_name }}" readonly>
-                  </div>
-                </div>
-              </div>
-                 <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="hire_date">Hire Date</label>
-                    <input type="text" id="hire_date" class="form-control" value="{{ request.user.hire_date }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="last-name">Employee ID</label>
-                    <input type="text" id="last-name" class="form-control" placeholder="Last name" value="{{ request.user.id }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="job_title">Job Title</label>
-                    <input type="text" id="job_title" name="job_title" class="form-control" placeholder="Last name" value="{{ request.user.job_title }}" readonly>
-                  </div>
-                </div>
-              </div> {
-        </div>
+          {% if messages %}
+          <h3 class="red"> Please Correct The Following Errors:</h3>
+<ul class="messages">
+    {% for message in messages %}
+<li class="red">{{ message }}</li>
+    {% endfor %}
+</ul>
             <hr class="my-4" />
-            <!-- Address -->
-            <h6 class="heading-small text-muted mb-4">Contact information</h6>
-            <div class="pl-lg-4">
-            <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" class="form-control editable" placeholder="Home Address" value="{{ request.user.street_address }}" type="text" readonly>
-                  </div>
-                </div>
-              </div>
-            <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="city">City</label>
-                    <input type="text" id="city" name="city" class="form-control editable" placeholder="City" value="{{ request.user.city }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="state">State</label>
-                    <input type="text" id="state" name="state" class="form-control editable" placeholder="Country" value="{{ request.user.state }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="zipcode">Postal code</label>
-                    <input type="number" id="zipcode"  name="zipcode" class="form-control editable" placeholder="{{ request.user.zipcode }}" readonly>
-                  </div>
-                </div>
-              </div> {
-                <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="phone">Phone</label>
-                    <input type="text" id="phone" class="form-control editable" placeholder="Phone" value="{{ request.user.phone }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="social_security">Social Security</label>
-                    <input type="text" id="social_security" name="social_security" class="form-control editable" placeholder="Social" value="{{ request.user.social_security }}" readonly>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="gender">Gender Identity</label>
-                    <input type="select" id="gender" class="form-control editable" placeholder="{{ request.user.get_gender_display }}" readonly>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-                            <div class="col-2">
-      <input type='submit' id="save-changes-btn"  value="Save Changes" class="btn btn-neutral" hidden>
-    </div>
-    <div class="col-2">
-                  <button style="margin-left: 30px" class='btn btn-danger' id="cancel-edits-btn" hidden>Cancel</button>
-    </div>
-  </div>
-          </form> {% endcomment %}
+
+{% endif %}
+
+      {% csrf_token %}
+        {% crispy form %}
             <hr class="my-4" />
             <!-- Description -->
             <h6 class="heading-small text-muted mb-4">Training and Certification</h6>
