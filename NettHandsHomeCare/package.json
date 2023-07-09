@@ -1,6 +1,10 @@
 {
   "dependencies": {
+    "@codewithkyle/notifyjs": "^4.1.0",
     "animate.css": "^4.1.1",
     "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "brixi-ui": "^0.8.6"
   }
 }

@@ -1,6 +1,3 @@
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -15,7 +12,10 @@ from django.views.generic.detail import DetailView
 from icecream import ic
 from portal.forms import EmployeeForm
 from portal.models import Employee
-
+from web.forms import ClientInterestForm
+from web.models import ClientInterestSubmissions
+import json
+import os
 
 @login_required(login_url="/login/")
 def index(request):
@@ -23,23 +23,6 @@ def index(request):
 
     html_template = loader.get_template("home/index.html")
     return HttpResponse(html_template.render(context, request))
-
-
-# class ProfileView(DetailView):
-#     model = Employee
-#     form_class = EmployeeForm
-#     template_name = "home/profile.html"
-#     success_url = "/profile"
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         return context
-
-
-# def get(request, pk):
-#     context = dict()
-#     context["form"] = EmployeeForm
-# #     return HttpResponse(render(request,'profile.html', context)
 
 
 @login_required(login_url="/login/")
@@ -155,12 +138,7 @@ def profile(request):
         user.gender = form.data.get("gender")
         user.save()
         return redirect(reverse("profile"))
-        # except Exception:
 
-        # else:
-        #     context["form"] = EmployeeForm(initial=init_values)
-        #     messages.error(request, form.errors)
-        #     return render(request,'home/profile.html', context)
     elif request.method == "GET":
         context["form"] = EmployeeForm(initial=init_values)
         ic("GET Path")
@@ -170,11 +148,51 @@ def profile(request):
             context=context,
         )
 
-    # user = Employee.objects.get(id=request.user.id)
-    # form = EmployeeForm(request.POST)
-    # if request.method == "POST":
-    #     if form.is_valid():
-    #         form.save(commit=True)
-    #         return redirect("/profile")
-    #     else:
-    #         return redirect()
+
+@login_required(login_url="/login/")
+def client_inquiries(request):
+    context = dict()
+    context["submissions"] = ClientInterestSubmissions.objects.all().order_by(
+        "-date_submitted",
+    )
+    context["showSearch"] = True
+    return render(request, "home/service-inquiries.html", context)
+
+
+@login_required(login_url="/login/")
+def submission_detail(request, pk):
+    context = dict()
+    submission = ClientInterestSubmissions.objects.get(pk=pk)
+    context["type"] = "Client Interest"
+    init_values = {
+        "id": submission.id,
+        "first_name": submission.first_name,
+        "last_name": submission.last_name,
+        "email": submission.email,
+        "contact_number": submission.contact_number,
+        "zipcode": submission.zipcode,
+        "insurance_carrier": submission.insurance_carrier,
+        "desired_service": submission.desired_service,
+        "date_submitted": submission.date_submitted,
+        "reviewed": submission.reviewed,
+        "reviewed_by": submission.reviewed_by,
+    }
+    # context["form"] = ClientInterestForm(initial=init_values)
+    context["submission"] = init_values
+
+    return render(request, "home/submission-details.html", context)
+
+
+def marked_reviewed(request):
+    try:
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        pk = body['pk']
+        submission = ClientInterestSubmissions.objects.get(id=pk)
+        submission.marked_reviewed(request.user)
+        submission.save()
+        return HttpResponse(status=204)
+    except Exception as e:
+        ic(e)
+        return HttpResponse(status=418)
+

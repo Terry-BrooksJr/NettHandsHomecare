@@ -1,13 +1,24 @@
 from django.urls import path
 from django.urls import re_path
+from django.views.decorators.csrf import csrf_exempt
 
 from . import views
 
 urlpatterns = [
-    # The home page
     path("dashboard", views.index, name="home"),
     path("profile/", views.profile, name="profile"),
-    # path("update-profile/", views.update_profile, name="change-profile")
+    path("inquiries/", views.client_inquiries, name="inquiries"),
+    path(
+        "inquiries/<int:pk>/",
+        views.submission_detail,
+        name="client_interest_details",
+    ),
+    path(
+        "reviewed",
+        csrf_exempt(views.marked_reviewed),
+        name="marked_reviewed",
+    ),
     # Matches any html file
     # re_path(r"^.*\.*", views.pages, name="pages"),
 ]
+ 

@@ -71,7 +71,7 @@ TEMPLATES = [
         },
     },
 ]
-AUTH_USER_MODEL = "portal.Employee"  # Add this
+AUTH_USER_MODEL = "portal.Employee"
 WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
 DATABASES = {
     # "default": {
@@ -83,7 +83,7 @@ DATABASES = {
     #     "PORT": os.environ.get("DB_PORT"),
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.environ.get("DB_NAME"),
+        "NAME": "offline-db",
     },
     # },
 }

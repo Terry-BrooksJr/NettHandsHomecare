@@ -5,6 +5,7 @@ from localflavor.us.models import USStateField
 from localflavor.us.models import USZipCodeField
 from pendulum import now
 from phonenumber_field.modelfields import PhoneNumberField
+from portal.models import Employee
 
 now = now(tz="America/Chicago")
 
@@ -26,6 +27,17 @@ class ClientInterestSubmissions(models.Model):
     insurance_carrier = models.CharField(max_length=255)
     desired_service = models.CharField(max_length=255, choices=SERVICES.choices)
     date_submitted = models.DateTimeField(auto_now_add=True)
+    reviewed = models.BooleanField(default=False)
+    reviewed_by = models.ForeignKey(
+        Employee,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
+
+    def marked_reviewed(self, user_id):
+        self.reviewed = True
+        self.reviewed_by = user_id
 
     def __str__(self):
         return f"{self.last_name}, {self.first_name} - Submission Date: {self.date_submitted}"
