@@ -29,25 +29,22 @@ function makeProfileUnEditable() {
   cancelChangesButton.hidden = true
   saveChangeButton.hidden = true
 }
-cancelChangesButton.addEventListener('click', cancelPendingEdits)
-editProfileButton.addEventListener('click', makeProfileEditable)
-window.addEventListener('load', makeProfileUnEditable)
+
 
 // !SECTION
 
 // SECTIION - Client Submission Filtering & Pagination
-const $submissions = document.querySelectorAll(".client-submission")
-const $page = $('.page');
-const $pagination = $('.pagination');
-const $paginationList = $('.pagination');
-const $submissionSearch = $('.search-field');
+const $submissions = $(".client-submission")
+const $page = document.querySelector('.page');
+const $pagination = document.querySelector('.pagination');
+const $paginationList = document.querySelector('.pagination__list');
+const $submissionSearch = document.querySelector('.search-field');
 const itemTotal = 10;
 
-console.log($submissionSearch)
+
 // hide all
 function hideAll() {
-  
-  $submissions.forEach((field) => {
+  $submissions.each((field) => {
     field.hidden = true
   })
 }
@@ -65,16 +62,22 @@ displayRange(0, itemTotal);
 // create pagination links
 let pagination = '';
 for (var i = 0; i <= $submissions.length / 10 - 1; i++) {
-  pagination += `
-    <li><span class ="page-link">${i}</span></li>
-`;
+  const listItemStyleWrapper = document.createElement('li')
+  listItemStyleWrapper.classList.add("page-item")
+  const listItemPage = document.createElement("a")
+  listItemPage.innerHTML = i
+  listItemPage.classList.add("page-link")
+//   pagination += `
+//     <li><span class ="page-link">${i}</span></li>
+// `;
+  $paginationList.appendChild(listItemPage);
 }
 
-$paginationList.append(pagination);
+
 // click on pagination num
 // pass into display range
 // calc and show range
-$('body').on('click', '.pagination__num', function () {
+$('body').on('click', '.page-link', function () {
 
   hideAll();
 
@@ -88,20 +91,17 @@ $('body').on('click', '.pagination__num', function () {
   displayRange(startFrom, end);
 
 });
-$submissionSearch.addEventListener('keyup', function () {
-
+$submissionSearch.addEventListener('input', function () {
   hideAll();
-
-  $submissions.each(function () {
+  $submissions.each(() => {
     $(this).removeClass("result");
-
   });
 
 
   // value of searched
   var text = $(this).val().toLowerCase();
   // results of search
-  var results = $("ul.student-list li:contains('" + text.toLowerCase() + "')");
+  var results = $("tr.client-submission td:contains('" + text.toLowerCase() + "')");
 
   results.addClass("result");
 
@@ -117,10 +117,9 @@ $submissionSearch.addEventListener('keyup', function () {
 
   }
 
-
 });
 
-$submissionSearch.addEventListener(function () {
+$submissionSearch.addEventListener('input', function () {
   if (!this.value) {
     hideAll();
     displayRange(0, itemTotal);
@@ -131,15 +130,19 @@ $submissionSearch.addEventListener(function () {
 $(document).ready(function () {
   const tabs = $('.tab').click(function () {
     if (this.id == 'all') {
-      $('.student-item').fadeIn(450);
+      $('.client-submission').fadeIn(450);
     } else {
       this.classList.add('active');
       tabs.not(this).removeClass('active');
       const el = $('.' + this.id).fadeIn(450);
-      $('.student-item').not(el).hide();
+      $('.client-submission').not(el).hide();
     }
   });
 });
+
+
+  
+
 // !SECTION
 
 // SECTION - JQUERY AJAX Post Request to update
@@ -148,17 +151,16 @@ function ntfy(cb) {
   console.info('Getting Ready to Reload Page')
   setTimeout(reloadPage(), 500000);
 };
-function reloadPage(){
-    document.location.reload()
-    setTimeout(document.location.reload(), 3000)
+function reloadPage() {
+  document.location.reload()
+  setTimeout(document.location.reload(), 3000)
 
 }
-function SuccessfulUpdate(){
+function SuccessfulUpdate() {
   notifications.snackbar('Submission Marked as Reviewed');
-  
 }
 
-function markSubmissionAsReviewed(pk, cb) {
+function markSubmissionAsReviewed(pk) {
   let data = {
     "pk": pk
   }

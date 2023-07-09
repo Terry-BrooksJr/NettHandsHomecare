@@ -16,6 +16,7 @@ from web.forms import ClientInterestForm
 from web.models import ClientInterestSubmissions
 import json
 import os
+from django.core.serializers.json import DjangoJSONEncoder
 
 @login_required(login_url="/login/")
 def index(request):
@@ -148,6 +149,10 @@ def profile(request):
             context=context,
         )
 
+def all_client_inquiries(request):
+    inquiries = ClientInterestSubmissions.objects.all().values()
+    inquiries_json = json.dumps(list(inquiries), cls=DjangoJSONEncoder)
+    return HttpResponse(content=inquiries_json, status=200)
 
 @login_required(login_url="/login/")
 def client_inquiries(request):
@@ -155,7 +160,11 @@ def client_inquiries(request):
     context["submissions"] = ClientInterestSubmissions.objects.all().order_by(
         "-date_submitted",
     )
+    countUnresponsed = ClientInterestSubmissions.objects.filter(reviewed=False).count()
+    context["unresponsed"] = countUnresponsed
     context["showSearch"] = True
+    context["reviewed"] = ClientInterestSubmissions.objects.filter(reviewed=True).count()
+    context["all_submuission"] =  ClientInterestSubmissions.objects.all().count
     return render(request, "home/service-inquiries.html", context)
 
 
@@ -176,6 +185,7 @@ def submission_detail(request, pk):
         "date_submitted": submission.date_submitted,
         "reviewed": submission.reviewed,
         "reviewed_by": submission.reviewed_by,
+
     }
     # context["form"] = ClientInterestForm(initial=init_values)
     context["submission"] = init_values

@@ -27,14 +27,27 @@
           <!-- Card header -->
           <div class="card-header border-0">
             <h3 class="mb-0">Submissions</h3>
+       
           </div>
           <!-- Light table -->
+                        <ul class="nav nav-tabs">
+                <li class="tab nav-item">
+                  <a class="nav-link tab active" id="all" aria-current="page" href="#">All - {{ all_submuission }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link tab" id="reviewed" href="#">Reviewed - {{ reviewed }}</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link tab" id="pending" href="#">Pending Review - {{ unresponsed }}</a>
+                </li>
+
+        </ul> 
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
-              <thead class="thead-light">
+              <thead class="thead-light"> 
                 <tr>
                   <th scope="col" class="sort" data-sort="name">Submission Date</th>
-                                    <th scope="col" class="sort" data-sort="reviewed"></th>
+                                    <th scope="col" class="sort" data-sort="reviewed">Reviewed?</th>
 
                   <th scope="col" class="sort" data-sort="budget">First Name</th>
                   <th scope="col" class="sort" data-sort="status">Last Name</th>
@@ -45,7 +58,11 @@
               </thead>
               <tbody class="list">
                 {% for submission in submissions %}
-                <tr class="client-submission">
+                  {% if submission.reviewed is False %}
+                    <tr class="client-submission reviewed">
+                  {% elif submission.reviewed is True %}
+                     <tr class="client-submission pending">
+                   {% endif  %}
                   <th scope="row">
                     <div class="media align-items-center">
 
@@ -84,26 +101,7 @@
           <!-- Card footer -->
           <div class="card-footer py-4">
             <nav aria-label="...">
-              <ul class="pagination justify-content-end mb-0">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1">
-                    <i class="fas fa-angle-left"></i>
-                    <span class="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li class="page-item active">
-                  <a class="page-link" href="#">1</a>
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                  <a class="page-link" href="#">
-                    <i class="fas fa-angle-right"></i>
-                    <span class="sr-only">Next</span>
-                  </a>
-                </li>
+              <ul class="pagination__list pagination justify-content-end mb-0">
               </ul>
             </nav>
           </div>

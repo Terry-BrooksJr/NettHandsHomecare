@@ -18,6 +18,7 @@ urlpatterns = [
         csrf_exempt(views.marked_reviewed),
         name="marked_reviewed",
     ),
+    path("all_client_inquiries/", views.all_client_inquiries, name='all_client_inquiries')
     # Matches any html file
     # re_path(r"^.*\.*", views.pages, name="pages"),
 ]
