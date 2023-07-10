@@ -47,8 +47,8 @@ CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+        "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -107,6 +107,5 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-STATICFILES_DIRS = [BASE_DIR / "static", BASE_DIR / "static/vendor"]
-DATETIME_FORMAT = "%m-%d-%Y"
-STATIC_ROOT = f"{BASE_DIR}/static/assets"
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+STATIC_ROOT = f"{BASE_DIR}/staticfiles"
