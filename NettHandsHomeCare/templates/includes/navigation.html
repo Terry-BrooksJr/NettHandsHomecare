@@ -2,19 +2,21 @@
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!-- Search form -->
+      {% if showSearch is True %}
       <form class="navbar-search navbar-search-light form-inline mr-sm-3" id="navbar-search-main">
         <div class="form-group mb-0">
           <div class="input-group input-group-alternative input-group-merge">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fas fa-search"></i></span>
             </div>
-            <input class="form-control search-field" placeholder="Search" type="text">
+            <input id="searchbar" class="form-control search-field" placeholder="Search" type="text">
           </div>
         </div>
         <button type="button" class="close" data-action="search-close" data-target="#navbar-search-main" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </form>
+      {% endif %}
       <!-- Navbar links -->
       <ul class="navbar-nav align-items-center  ml-md-auto ">
 
@@ -22,7 +24,7 @@
         <li class="nav-item dropdown">
           <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
-       
+
               <div class="media-body  ml-2  d-none d-lg-block">
                 <span class="mb-0 text-sm  font-weight-bold">
                   {{ request.user.first_name }}

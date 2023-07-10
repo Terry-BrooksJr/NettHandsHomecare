@@ -19,8 +19,7 @@
   <link rel="stylesheet" href="/static/vendor/nucleo/css/nucleo.css" type="text/css">
   <link rel="stylesheet" href="/static/vendor/@fortawesome/fontawesome-free/css/all.min.css" type="text/css">
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="/static/css/argon.css?v=1.2.0" type="text/css">
-
+  <link rel="stylesheet" href="{% static 'argon.css?v=1.2.0' %}" type="text/css">
   <!-- Specific CSS goes HERE -->
   {% block stylesheets %}{% endblock stylesheets %}
 
@@ -62,7 +61,7 @@
   <!-- Specific JS goes HERE -->
   {% block javascripts %}{% endblock javascripts %}
 
-  <script src="/static/js/argon.js?v=1.2.0"></script>
+  <script src="{% static '/js/argon.js?v=1.2.0' %}"></script>
 
 </body>
 

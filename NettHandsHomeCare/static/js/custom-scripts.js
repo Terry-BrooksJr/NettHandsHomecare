@@ -4,7 +4,7 @@ const $submissions = $(".client-submission")
 const $page = document.querySelector('.page');
 const $pagination = document.querySelector('.pagination');
 const $paginationList = document.querySelector('.pagination__list');
-const $submissionSearch = document.querySelector('.search-field');
+const $submissionSearch = document.getElementById('searchbar');
 const itemTotal = 10;
 
 
@@ -26,20 +26,28 @@ function displayRange(a, b) {
 displayRange(0, itemTotal);
 
 // create pagination links
-let pagination = '';
-for (var i = 0; i <= $submissions.length / 10 - 1; i++) {
-  const listItemStyleWrapper = document.createElement('li')
-  listItemStyleWrapper.classList.add("page-item")
-  const listItemPage = document.createElement("a")
-  listItemPage.innerHTML = i
-  listItemPage.classList.add("page-link")
-//   pagination += `
-//     <li><span class ="page-link">${i}</span></li>
-// `;
-  $paginationList.appendChild(listItemPage);
-}
+// let pagination = '';
+// for (var i = 0; i <= $submissions.length / 10 - 1; i++) {
+//   const listItemStyleWrapper = document.createElement('li')
+//   listItemStyleWrapper.classList.add("page-item")
+//   const listItemPage = document.createElement("a")
+//   listItemPage.innerHTML = i
+//   listItemPage.classList.add("page-link")
+// //   pagination += `
+// //     <li><span class ="page-link">${i}</span></li>
+// // `;
+//   $paginationList.appendChild(listItemPage);
+// }
 
-
+$pagination.pagination({
+  dataSource: new Range($submissions.length / 10 - 1) ,
+  callback: function (data, pagination) {
+    // template method of yourself
+    var html = template(data);
+    dataContainer.html(html);
+    pageSize: 10;q
+  }
+})
 // click on pagination num
 // pass into display range
 // calc and show range
@@ -57,7 +65,7 @@ $('body').on('click', '.page-link', function () {
   displayRange(startFrom, end);
 
 });
-$submissionSearch.addEventListener('input', function () {
+$submissionSearch.addEventListener('keyup', function () {
   hideAll();
   $submissions.each(() => {
     $(this).removeClass("result");
@@ -76,7 +84,6 @@ $submissionSearch.addEventListener('input', function () {
   // dispaly
   // else hide
 
-
   if ($submissions.hasClass('result')) {
     $('.result').show();
     $submissions.removeClass('result');
@@ -85,7 +92,7 @@ $submissionSearch.addEventListener('input', function () {
 
 });
 
-$submissionSearch.addEventListener('input', function () {
+$submissionSearch.addEventListener('keyup', function () {
   if (!this.value) {
     hideAll();
     displayRange(0, itemTotal);
@@ -107,7 +114,28 @@ $(document).ready(function () {
 });
 
 
-  
+
+
+function search_entires() {
+  let input = document.getElementById('searchbar').value
+  input = input.toLowerCase();
+  let x = document.getElementsByClassName('client-submission');
+
+  for (i = 0; i < x.length; i++) {
+    if (!x[i].innerHTML.toLowerCase().includes(input)) {
+      x[i].style.display = "none";
+    }
+
+  }
+}
+document.getElementById('searchbar').addEventListener('input', search_entires)
+document.getElementById('searchbar').addEventListener('change', search_entires)
+document.getElementById('searchbar').addEventListener('keyup', search_entires)
+document.getElementById('searchbar').addEventListener('keydown', search_entires)
+document.getElementById('searchbar').addEventListener('focus', search_entires)
+document.getElementById('searchbar').addEventListener('blur', search_entires)
+
+
 
 // !SECTION
 
@@ -139,7 +167,6 @@ function markSubmissionAsReviewed(pk) {
   });
 };
 
-// !SECTION 
+// !SECTION
 
 // SECTION - SNACKBAR Notification
-
