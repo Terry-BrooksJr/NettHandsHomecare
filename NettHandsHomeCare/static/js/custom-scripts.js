@@ -39,16 +39,7 @@ displayRange(0, itemTotal);
 //   $paginationList.appendChild(listItemPage);
 // }
 
-$pagination.pagination({
-  dataSource: new Range($submissions.length / 10 - 1) ,
-  callback: function (data, pagination) {
-    // template method of yourself
-    var html = template(data);
-    dataContainer.html(html);
-    pageSize: 10;q
-  }
-})
-// click on pagination num
+// click on pagination num,
 // pass into display range
 // calc and show range
 $('body').on('click', '.page-link', function () {

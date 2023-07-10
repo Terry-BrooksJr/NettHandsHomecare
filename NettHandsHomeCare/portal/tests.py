@@ -2,5 +2,26 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 from django.test import TestCase
+import sys
+from unittest import mock
 
-# Create your tests here.
+from django.test import SimpleTestCase
+from gunicorn.app.wsgiapp import run
+
+
+class GunicornConfigTests(SimpleTestCase):
+    def test_config(self):
+        argv = [
+            "gunicorn",
+            "--check-config",
+            "--config",
+            "python:example.gunicorn",
+            "NettHandsHomeCare.wsgi",
+        ]
+        mock_argv = mock.patch.object(sys, "argv", argv)
+
+        with self.assertRaises(SystemExit) as cm, mock_argv:
+            run()
+
+        exit_code = cm.exception.args[0]
+        self.assertEqual(exit_code, 0)

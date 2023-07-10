@@ -140,5 +140,4 @@ GitHub.sublime-settings
 !.env.project
 !.env.vault
 NettHandsHomeCare/node_modules/*
-NettHandsHomeCare/staticfiles/*
 NettHandsHomeCare/static/vendor/jvectormap-next/jquery-jvectormap.min.js.map
