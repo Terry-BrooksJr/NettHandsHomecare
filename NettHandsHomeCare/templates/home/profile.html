@@ -101,10 +101,5 @@
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-<script>
-  cancelChangesButton.addEventListener('click', cancelPendingEdits)
-  editProfileButton.addEventListener('click', makeProfileEditable)
-  window.addEventListener('load', makeProfileUnEditable)
-</script>
-
+<script src="{% static 'js/profile.js' %}"></script>
 {% endblock javascripts %}
