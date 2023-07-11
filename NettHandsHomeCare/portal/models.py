@@ -19,7 +19,6 @@ class Assessment(models.Model):
         return ""
 
 class InServiceTraining(models.Model):
-    class Comptency  
     user = models.ForeignKey("Employee", on_delete=models.CASCADE)
 
 
