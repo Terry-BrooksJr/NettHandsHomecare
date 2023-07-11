@@ -6,6 +6,8 @@ from localflavor.us.models import USZipCodeField
 from pendulum import now
 from phonenumber_field.modelfields import PhoneNumberField
 from portal.models import Employee
+import random
+import string
 
 now = now(tz="America/Chicago")
 
@@ -77,14 +79,51 @@ class EmploymentApplicationModel(models.Model):
     mobility = models.CharField(max_length=255, choices=MOBILITTY.choices)
     prior_experience = models.CharField(max_length=255, choices=PRIOREXPERIENCE.choices)
     ipdh_registered = models.BooleanField(default=False)
-    availability_monday = models.BooleanField()
-    availability_tuesday = models.BooleanField()
-    availability_wednesday = models.BooleanField()
-    availability_thursday = models.BooleanField()
-    availability_friday = models.BooleanField()
-    availability_saturday = models.BooleanField()
-    availability_sunday = models.BooleanField()
+    availability_monday = models.BooleanField(null=True, blank=True)
+    availability_tuesday = models.BooleanField(null=True, blank=True)
+    availability_wednesday = models.BooleanField(null=True, blank=True)
+    availability_thursday = models.BooleanField(null=True, blank=True)
+    availability_friday = models.BooleanField(null=True, blank=True)
+    availability_saturday = models.BooleanField(null=True, blank=True)
+    availability_sunday = models.BooleanField(null=True, blank=True)
+    reviewed = models.BooleanField(null=True, blank=True, default=False)
+    hired = models.BooleanField(null=True, blank=True)
+    reviewed_by = models.ForeignKey(
+        Employee, on_delete=models.PROTECT, null=True, blank=True
+    )
     date_submitted = models.DateTimeField(auto_now_add=True)
+
+    def generate_random_password(self):
+        letters = string.ascii_lowercase
+        random_password = "".join(random.choice(letters) for i in range(8))
+        return random_password
+
+    def hire(self, hired_by):
+        username = f"{self.first_name.lower()}.{self.last_name.lower()}"
+        ic(username)
+        new_employee = Employee(
+            is_superuser=False,
+            username=username,
+            is_active=True,
+            first_name=self.first_name,
+            last_name=self.last_name,
+            email=self.email,
+            hire_date=now,
+            phone=self.contact_number,
+        )
+        password = generate_random_password()
+        new_employee.make_password(password)
+        new_employee = new_employee.clean_fields()
+        new_employee.save()
+        self.hired = True
+        self.reviewed = True
+        self.reviewed_by = hired_by
+        return {"username": username, "password": password}
+
+    def reject(self, rejected_by):
+        self.hired = False
+        self.reviewed = True
+        self.reviewed_by = rejected_by
 
     class Meta:
         db_table = "employment_interests"

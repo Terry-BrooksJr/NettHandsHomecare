@@ -18,6 +18,10 @@ class Assessment(models.Model):
     def __str__(self):
         return ""
 
+class InServiceTraining(models.Model):
+    class Comptency  
+    user = models.ForeignKey("Employee", on_delete=models.CASCADE)
+
 
 class Employee(AbstractUser):
     class GENDER(models.TextChoices):
@@ -43,10 +47,12 @@ class Employee(AbstractUser):
         max_length=255,
         choices=GENDER.choices,
         default=GENDER.NON_GENDERED,
+        null=True,
+        blank=True,
     )
-    social_security = USSocialSecurityNumberField(unique=True, null=True)
-    middle_name = models.CharField(max_length=255, default="")
-    street_address = models.CharField(max_length=255, default="", null=True)
+    social_security = USSocialSecurityNumberField(unique=True, null=True, blank=True)
+    middle_name = models.CharField(max_length=255, default="", null=True, blank=True)
+    street_address = models.CharField(max_length=255, default="", null=True, blank=True)
     marital_status = models.CharField(
         max_length=255,
         null=True,
@@ -55,22 +61,16 @@ class Employee(AbstractUser):
         default=MARITAL_STATUS.NEVER_MARRIED,
     )
     emergency_contact_first_name = models.CharField(
-        max_length=255,
-        default="",
-        null=True,
+        max_length=255, default="", null=True, blank=True
     )
     emergency_contact_last_name = models.CharField(
-        max_length=255,
-        default="",
-        null=True,
+        max_length=255, default="", null=True, blank=True
     )
     emergency_contact_relationship = models.CharField(
-        max_length=255,
-        default="",
-        null=True,
+        max_length=255, default="", null=True, blank=True
     )
-    emergency_contact_phone = PhoneNumberField(default="+15555555555")
-    city = models.CharField(max_length=255, default="", null=True)
+    emergency_contact_phone = PhoneNumberField(region="US", null=True, blank=True)
+    city = models.CharField(max_length=255, default="", null=True, blank=True)
     department = models.CharField(
         max_length=255,
         null=True,

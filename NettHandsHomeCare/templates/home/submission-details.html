@@ -78,7 +78,7 @@
               {% if submission.reviewed is False %}
         <button id="mark-reviewed-btn" onclick="markSubmissionAsReviewed({{ submission.id }})" class="btn btn-success">Mark As Reviewed</button>
               {% endif %}
-        <a  class="btn btn-danger" href="{% url 'inquiries' %}">Back to Submissions List</a>
+        <a  class="btn btn-secondary" href="{% url 'inquiries' %}">Back to Submissions List</a>
             </div?>
         </div>
       </div>

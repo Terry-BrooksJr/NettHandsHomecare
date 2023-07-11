@@ -13,10 +13,11 @@ from icecream import ic
 from portal.forms import EmployeeForm
 from portal.models import Employee
 from web.forms import ClientInterestForm
-from web.models import ClientInterestSubmissions
+from web.models import ClientInterestSubmissions, EmploymentApplicationModel
 import json
 import os
 from django.core.serializers.json import DjangoJSONEncoder
+
 
 @login_required(login_url="/login/")
 def index(request):
@@ -149,10 +150,12 @@ def profile(request):
             context=context,
         )
 
+
 def all_client_inquiries(request):
     inquiries = ClientInterestSubmissions.objects.all().values()
     inquiries_json = json.dumps(list(inquiries), cls=DjangoJSONEncoder)
     return HttpResponse(content=inquiries_json, status=200)
+
 
 @login_required(login_url="/login/")
 def client_inquiries(request):
@@ -163,8 +166,10 @@ def client_inquiries(request):
     countUnresponsed = ClientInterestSubmissions.objects.filter(reviewed=False).count()
     context["unresponsed"] = countUnresponsed
     context["showSearch"] = True
-    context["reviewed"] = ClientInterestSubmissions.objects.filter(reviewed=True).count()
-    context["all_submuission"] =  ClientInterestSubmissions.objects.all().count
+    context["reviewed"] = ClientInterestSubmissions.objects.filter(
+        reviewed=True
+    ).count()
+    context["all_submuission"] = ClientInterestSubmissions.objects.all().count
     return render(request, "home/service-inquiries.html", context)
 
 
@@ -185,7 +190,6 @@ def submission_detail(request, pk):
         "date_submitted": submission.date_submitted,
         "reviewed": submission.reviewed,
         "reviewed_by": submission.reviewed_by,
-
     }
     # context["form"] = ClientInterestForm(initial=init_values)
     context["submission"] = init_values
@@ -195,9 +199,9 @@ def submission_detail(request, pk):
 
 def marked_reviewed(request):
     try:
-        body_unicode = request.body.decode('utf-8')
+        body_unicode = request.body.decode("utf-8")
         body = json.loads(body_unicode)
-        pk = body['pk']
+        pk = body["pk"]
         submission = ClientInterestSubmissions.objects.get(id=pk)
         submission.marked_reviewed(request.user)
         submission.save()
@@ -206,3 +210,78 @@ def marked_reviewed(request):
         ic(e)
         return HttpResponse(status=418)
 
+@login_required(login_url="/login/")
+def employment_applications(request):
+    context = dict()
+    context["submissions"] = EmploymentApplicationModel.objects.all().order_by(
+        "-date_submitted",
+    )
+    countUnresponsed = EmploymentApplicationModel.objects.filter(reviewed=False).count()
+    context["unresponsed"] = countUnresponsed
+    context["showSearch"] = True
+    context["reviewed"] = EmploymentApplicationModel.objects.filter(
+        reviewed=True
+    ).count()
+    context["all_submuission"] = EmploymentApplicationModel.objects.all().count
+    return render(request, "home/submitted-applications.html", context)
+    
+@login_required(login_url="/login/")
+def applicant_details(request, pk):
+    context = dict()
+    submission = EmploymentApplicationModel.objects.get(pk=pk)
+    context["type"] = "Client Interest"
+    init_values = {
+      'first_name': submission.first_name, 
+      'last_name': submission.last_name,
+      'contact_number': submission.contact_number, 
+      'email': submission.email, 
+      'home_address': submission.home_address, 
+      'city': submission.city,
+      'state': submission.state, 
+      'zipcode': submission.zipcode, 
+      'mobility': submission.mobility, 
+      'prior_experience': submission.prior_experience, 
+      'ipdh_registered': submission.ipdh_registered, 
+      'availability_monday': submission.availability_monday, 
+      'availability_tuesday': submission.availability_tuesday, 
+      'availability_wednesday': submission.availability_wednesday, 
+      'availability_thursday': submission.availability_thursday, 
+      'availability_friday': submission.availability_friday, 
+      'availability_saturday': submission.availability_saturday, 
+      'availability_sunday': submission.availability_sunday, 
+      'reviewed': submission.reviewed, 
+      'hired': submission.hired, 
+      'reviewed_by': submission.reviewed_by, 
+      'date_submitted': submission.date_submitted
+    }
+    # context["form"] = ClientInterestForm(initial=init_values)
+    context["submission"] = init_values
+
+    return render(request, "home/applicant-details.html", context)
+
+def hire(request):
+    try:
+        body_unicode = request.body.decode("utf-8")
+        body = json.loads(body_unicode)
+        pk = body["pk"]
+        submission = EmploymentApplicationModel.objects.get(id=pk)
+        new_hire = submission.hire(request.user)
+        json_password = json.dumps(new_hire)
+        submission.save()
+        return HttpResponse(content=json_password, status=201)
+    except Exception as e:
+        ic(e)
+        return HttpResponse(status=418)
+
+def reject(request):
+    try:
+        body_unicode = request.body.decode("utf-8")
+        body = json.loads(body_unicode)
+        pk = body["pk"]
+        submission = EmploymentApplicationModel.objects.get(id=pk)
+        submission.reject(request.user)
+        submission.save()
+        return HttpResponse(status=204)
+    except Exception as e:
+        ic(e)
+        return HttpResponse(status=418)
