@@ -6,13 +6,14 @@ from . import views
 
 urlpatterns = [
     path("dashboard", views.index, name="home"),
-    path("profile/", views.profile, name="profile"),
+    path("my-profile/", views.profile, name="profile"),
     path("inquiries/", views.client_inquiries, name="inquiries"),
     path(
         "inquiries/<int:pk>/",
         views.submission_detail,
         name="client_interest_details",
     ),
+    path("employee-details/<int:pk>", views.employee_details, name="roster-profile"),
     path(
         "reviewed",
         csrf_exempt(views.marked_reviewed),
@@ -28,6 +29,7 @@ urlpatterns = [
     path("rejected", csrf_exempt(views.reject), name="reject-application"),
     path("applicant/<int:pk>", views.applicant_details, name="applicant-details"),
     path("all_applicants", views.all_applicants, name="submitted-applicants-api"),
+    path("roster/", views.employee_roster, name="roster"),
     # Matches any html file
     # re_path(r"^.*\.*", views.pages, name="pages"),
 ]

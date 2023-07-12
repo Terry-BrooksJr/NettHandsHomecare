@@ -9,7 +9,18 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from portal.models import Contract
 from portal.models import Employee
+
+
+class ContractForm(forms.ModelForm):
+    """Form definition for Employee Model."""
+
+    class Meta:
+        """Meta definition for EmployeeForm."""
+
+        model = Contract
+        fields = "__all__"
 
 
 class EmployeeForm(forms.ModelForm):
@@ -52,14 +63,18 @@ class EmployeeForm(forms.ModelForm):
             "race",
             "qualifications_verification",
             "contract_code",
+            "username",
         )
         labels = {
             "language": _(
                 "Language Preference",
             ),
             "family_hca": _("Are You Related By Blood or Marriage to your patient?"),
-            "qualifications": _("Highest Level of Education/Home Healthcare Qualification")
+            "qualifications": _(
+                "Highest Level of Education/Home Healthcare Qualification",
+            ),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -74,11 +89,6 @@ class EmployeeForm(forms.ModelForm):
         """,
             ),
             Row(
-                # Column(
-                #     "username",
-                #     readonly=True,
-                #     css_class="form-group col-md-6 mb-0 ",
-                # ),
                 Column(
                     "email",
                     disabled=True,
@@ -122,18 +132,18 @@ class EmployeeForm(forms.ModelForm):
                 ),
                 css_class="form-row ",
             ),
-               Row(
+            Row(
                 Column(
                     "language",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0",
                 ),
-                           Column(
+                Column(
                     "ethnicity",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0",
                 ),
-                                   Column(
+                Column(
                     "race",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0",
@@ -144,7 +154,7 @@ class EmployeeForm(forms.ModelForm):
                 Column("family_hca", css_class="form-group col-md-12 mb-0"),
                 css_class="form-row",
             ),
-                        Row(
+            Row(
                 Column("qualifications", css_class="form-group col-md-12 mb-0"),
                 css_class="form-row",
             ),
@@ -233,7 +243,7 @@ class EmployeeForm(forms.ModelForm):
                 ),
                 css_class="form-row",
             ),
-                      HTML("""<hr class="my-4 />"""),
+            HTML("""<hr class="my-4 />"""),
             HTML(
                 """
         <h6 class="small-heading muted-text mb-4">Emergency Contact</strong></h6>

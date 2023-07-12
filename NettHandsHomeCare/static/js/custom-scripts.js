@@ -169,7 +169,7 @@ function hireApplicant(pk) {
     type: 'POST',
     success: function (response) {
       const obj = JSON.parse(response.responseText);
-      alert(`New Employee Username: ${obj.username} 
+      alert(`New Employee Username: ${obj.username}
       \n New Employee Password: ${obj.password}`)
     }
   }
@@ -190,37 +190,7 @@ function rejectApplicant(pk) {
   });
 };
 
-function hireApplicant(pk) {
-  let data = {
-    "pk": pk
-  }
-  data = JSON.stringify(data)
-  $.ajax({
-    url: '/hired',
-    data: data,
-    type: 'POST',
-    success: function (response) {
-      const obj = JSON.parse(response.responseText);
-      alert(`New Employee Username: ${obj.username} 
-      \n New Employee Password: ${obj.password}`)
-    }
-  }
-  )
-};
 
-
-function rejectApplicant(pk) {
-  let data = {
-    "pk": pk
-  }
-  data = JSON.stringify(data)
-  $.ajax({
-    url: '/rejected',
-    data: data,
-    type: 'POST',
-    success: ntfy('Application Rejected')
-  });
-};
 
 
 // !SECTION

@@ -18,16 +18,20 @@ class Assessment(models.Model):
     def __str__(self):
         return ""
 
+
 class InServiceTraining(models.Model):
     user = models.ForeignKey("Employee", on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return ""
+
+
 class Contract(models.Model):
-    code = models. CharField(max_length=10, unique=True)
+    code = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
         return "self.code"
+
 
 class Employee(AbstractUser):
     class GENDER(models.TextChoices):
@@ -48,7 +52,7 @@ class Employee(AbstractUser):
         ADMIN = "A", _("Administration")
         BILLING = "B", _("Billing")
         OTHER = "O", _("Other")
-    
+
     class ETHNICITY(models.TextChoices):
         NON_HISPANIC = "NON-HISPANIC", _("Non-Hispanic/Latino")
         HISPANIC = "HISPANIC", _("Hispanic/Latino")
@@ -60,7 +64,7 @@ class Employee(AbstractUser):
         COORDINATOR = "CARE_COORDINATOR", _("Care Coordinator")
         CC_SUPERVISOR = "CARE_COORDINATOR_SUPERVISOR", _("Care Coordinator Supervisor")
         HC_SUPERVISOR = "HOMECARE_SUPERVISOR", _("Homecare Supervisor")
-    
+
     class QUALIFICATIONS(models.TextChoices):
         HS_GED = "HIGH_SCHOOL_GED", _("High School Diploma/GED")
         CNA = "CNA", _("Certified Nursing Assistant (CNA)")
@@ -122,7 +126,13 @@ class Employee(AbstractUser):
         blank=True,
     )
 
-    language = models.CharField(max_length=255, choices=LANGUAGE.choices, blank=True, null=True, default=LANGUAGE.ENGLISH)
+    language = models.CharField(
+        max_length=255,
+        choices=LANGUAGE.choices,
+        blank=True,
+        null=True,
+        default=LANGUAGE.ENGLISH,
+    )
     social_security = USSocialSecurityNumberField(unique=True, null=True, blank=True)
     middle_name = models.CharField(max_length=255, default="", null=True, blank=True)
     street_address = models.CharField(max_length=255, default="", null=True, blank=True)
@@ -133,17 +143,38 @@ class Employee(AbstractUser):
         choices=MARITAL_STATUS.choices,
         default=MARITAL_STATUS.NEVER_MARRIED,
     )
-    
+
     emergency_contact_first_name = models.CharField(
-        max_length=255, default="", null=True, blank=True
+        max_length=255,
+        default="",
+        null=True,
+        blank=True,
     )
-    ethnicity = models.CharField(max_length=255, blank=True,choices=ETHNICITY.choices, default=ETHNICITY.UNKNOWN, null=False)
+    ethnicity = models.CharField(
+        max_length=255,
+        blank=True,
+        choices=ETHNICITY.choices,
+        default=ETHNICITY.UNKNOWN,
+        null=False,
+    )
     emergency_contact_last_name = models.CharField(
-        max_length=255, default="", null=True, blank=True
+        max_length=255,
+        default="",
+        null=True,
+        blank=True,
     )
-    race = models.CharField(max_length=255, blank=True, choices=RACE.choices, default=RACE.UNKNOWN, null=False)
+    race = models.CharField(
+        max_length=255,
+        blank=True,
+        choices=RACE.choices,
+        default=RACE.UNKNOWN,
+        null=False,
+    )
     emergency_contact_relationship = models.CharField(
-        max_length=255, default="", null=True, blank=True
+        max_length=255,
+        default="",
+        null=True,
+        blank=True,
     )
 
     emergency_contact_phone = PhoneNumberField(region="US", null=True, blank=True)
@@ -156,26 +187,73 @@ class Employee(AbstractUser):
         default=DEPARTMENT.PATIENT_CARE,
     )
     aps_check_passed = models.BooleanField(null=True, blank=True)
-    aps_check_verification = models.FileField(upload_to='verifications',null=True, blank=True)
-    qualifications_verification = models.FileField(upload_to='verifications', null=True, blank=True)
-    cpr_verification = models.FileField(upload_to='verifications',null=True, blank=True)
-    hhs_oig_exclusionary_check_verification = models.FileField(upload_to='verifications', null=True, blank=True)
+    aps_check_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
+    qualifications_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
+    cpr_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
+    hhs_oig_exclusionary_check_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
     hhs_oig_exclusionary_check_completed = models.BooleanField(null=True, blank=True)
     idph_background_check_completed = models.BooleanField(null=True, blank=True)
-    idph_background_check_verification = models.FileField(upload_to='verifications', null=True, blank=True)
-    pre_training_verification = models.FileField(upload_to='verifications', null=True, blank=True)
+    idph_background_check_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
+    pre_training_verification = models.FileField(
+        upload_to="verifications",
+        null=True,
+        blank=True,
+    )
     family_hca = models.BooleanField(null=True, blank=True)
     idph_background_check_completion_date = models.DateField(null=True, blank=True)
     training_exempt = models.BooleanField(null=True, blank=True)
     phone = PhoneNumberField(null=True)
     state = USStateField(null=True)
-    ethnicity = models.CharField(null=True, choices=ETHNICITY.choices, max_length=255, blank=True)
+    ethnicity = models.CharField(
+        null=True,
+        choices=ETHNICITY.choices,
+        max_length=255,
+        blank=True,
+    )
     zipcode = USZipCodeField(null=True)
-    contract_code = models.ForeignKey(Contract, on_delete=models.PROTECT)
+    contract_code = models.ForeignKey(
+        Contract,
+        choices=Contract.objects.all(),
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
+    )
     pre_service_completion_date = models.DateField(null=True, blank=True)
-    job_title = models.CharField(null=True, choices=JOB_TITLE.choices, default=JOB_TITLE.AIDE, max_length=255, blank=True)
+    job_title = models.CharField(
+        null=True,
+        choices=JOB_TITLE.choices,
+        default=JOB_TITLE.AIDE,
+        max_length=255,
+        blank=True,
+    )
     hire_date = models.DateField(null=True)
-    qualifications = models.CharField(null=True, choices=QUALIFICATIONS.choices, default=QUALIFICATIONS.HS_GED, max_length=255, blank=True)
+    qualifications = models.CharField(
+        null=True,
+        choices=QUALIFICATIONS.choices,
+        default=QUALIFICATIONS.HS_GED,
+        max_length=255,
+        blank=True,
+    )
     in_compliance = models.BooleanField(default=False, null=True)
     onboarded = models.DateField(null=True, blank=True)
 

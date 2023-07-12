@@ -1,13 +1,16 @@
+import random
+import string
+
+from django.contrib.auth.hashers import make_password
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from icecream import ic
 from localflavor.us.models import USStateField
 from localflavor.us.models import USZipCodeField
 from pendulum import now
 from phonenumber_field.modelfields import PhoneNumberField
 from portal.models import Employee
-import random
-import string
 
 now = now(tz="America/Chicago")
 
@@ -89,7 +92,10 @@ class EmploymentApplicationModel(models.Model):
     reviewed = models.BooleanField(null=True, blank=True, default=False)
     hired = models.BooleanField(null=True, blank=True)
     reviewed_by = models.ForeignKey(
-        Employee, on_delete=models.PROTECT, null=True, blank=True
+        Employee,
+        on_delete=models.PROTECT,
+        null=True,
+        blank=True,
     )
     date_submitted = models.DateTimeField(auto_now_add=True)
 
@@ -99,7 +105,9 @@ class EmploymentApplicationModel(models.Model):
         return random_password
 
     def hire(self, hired_by):
-        username = f"{self.first_name.lower()}.{self.last_name.lower()}"
+        username = (
+            f"{self.first_name.lower()}.{self.last_name.lower().replace(' ', '.')}"
+        )
         ic(username)
         new_employee = Employee(
             is_superuser=False,
@@ -108,17 +116,14 @@ class EmploymentApplicationModel(models.Model):
             first_name=self.first_name,
             last_name=self.last_name,
             email=self.email,
-            hire_date=now,
             phone=self.contact_number,
         )
-        password = generate_random_password()
-        new_employee.make_password(password)
-        new_employee = new_employee.clean_fields()
+        password = self.generate_random_password()
+        new_employee.password = make_password(password)
         new_employee.save()
         self.hired = True
         self.reviewed = True
         self.reviewed_by = hired_by
-        return {"username": username, "password": password}
 
     def reject(self, rejected_by):
         self.hired = False

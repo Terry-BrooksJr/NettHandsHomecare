@@ -7,7 +7,6 @@
 
   <link rel="stylesheet" href="{% static 'css/custom-portal-styles.css' %}" type="text/css"/>
 
-
 {% block content %}
     <div class="col-xl-8 order-xl-1">
       <div class="card">
@@ -46,7 +45,7 @@
           <div class="row">
             <div class="col-6">
               <h3><strong>Desired Service:</strong></h3>
-              <p>{{ submission.desired_service}}</p>
+              <p>{{ submission.desired_service }}</p>
             </div>
             <div class="col-6">
               <h3><strong>Payor:</strong></h3>
@@ -66,14 +65,6 @@
             </div>
             {% endif %}
           </div>
-
-        {% comment %} {% for field, value in submission.items %}
-        {% if field == 'desired_services' %}
-            <h3><strong>{{ field|replace_underscores }}: </strong></h3><p>{{ field | human_readable }}</p> <br>
-          {% else %}
-            <h3><strong>{{ field|replace_underscores }}: </strong></h3><p>{{ value }}</p> <br>
-        {% endif %}
-        {% endfor %} {% endcomment %}
             <div class="w-full text-center">
               {% if submission.reviewed is False %}
         <button id="mark-reviewed-btn" onclick="markSubmissionAsReviewed({{ submission.id }})" class="btn btn-success">Mark As Reviewed</button>
@@ -88,7 +79,7 @@
 
   {% include "includes/footer.html" %}
 
-{% endblock content %}3 
+{% endblock content %}3
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}

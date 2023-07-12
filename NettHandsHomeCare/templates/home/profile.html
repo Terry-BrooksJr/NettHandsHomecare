@@ -50,11 +50,13 @@
               <h3  class="animate__animated red animate__pulse animate__infinite">You Have Pending Training Task</h3>
               {% endif %}
               {% if request.user.pre_service_completion_date is None %}
-              <h3>Pre-Service Completion Date: <span class="red">Incomplete</span> </h3>
+              <h3>Pre-Service Completion Date: \n<span class="red">Incomplete</span> </h3>
               {% else %}
-              <h3>Pre-Service Completion Date:</h3><br/> <p><span class="green">{{ request.user.pre_service_completion_date }}</span> </p>
+              <br/>
+              <h3>Pre-Service Completion Date:</h3><br/>
+              <p><span class="green">{{ request.user.pre_service_completion_date }}</span> </p>
               {% endif %}
-              <h3>Fingerprinting Status Completion:</h3><br/><p class="animate__animated red animate__pulse animate__infinite">{{ request.user.idph_background_check_completion_date | default:"Pending"}}</p>
+              <h3>Fingerprinting Status Completion:</h3><br/><p class="animate__animated red animate__pulse animate__infinite">{{ request.user.idph_background_check_completion_date | default:"Pending" }}</p>
               {# djlint:on #}
 
             </div>
@@ -91,8 +93,19 @@
 
             <h6 class="heading-small text-muted mb-4">Office Staff Only</h6>
             {% csrf_token %}
+            <div class="row">
+                <div class="col-4">
             <h5>Adult Protective Services Check Completed?</h5>
-            {{ form.aps_check_passed}}
+            {{ form.aps_check_passed }}
+                </div>
+                <div class="col-4">
+                    <h5>APS Verification</h5>
+                    {{ form.aps_check_verification }}
+                </div>
+                                <div class="col-4">
+                    <h5>Contract Code</h5>
+                </div>
+            </div>
             <hr class="my-4" />
         {% endif %}
 
