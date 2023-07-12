@@ -123,8 +123,8 @@
           </div>
             <div class="w-full text-center">
               {% if submission.hired is None  %}
-            <button id="mark-reviewed-btn" onclick="markSubmissionAsReviewed({{ submission.id }})" class="btn btn-success">Hire</button>
-            <button id="mark-reviewed-btn" onclick="markSubmissionAsReviewed({{ submission.id }})" class="btn btn-danger">Reject</button>
+            <button id="mark-reviewed-btn" onclick="hireApplicant({{ submission.id }})" class="btn btn-success">Hire</button>
+            <button id="mark-reviewed-btn" onclick="rejectApplicant({{ submission.id }})" class="btn btn-danger">Reject</button>
               {% endif %}
             </div>
                         <div class="w-full text-center">
