@@ -25,8 +25,9 @@ urlpatterns = [
     ),
     path("hired", csrf_exempt(views.hire), name="hire-applicant"),
     path("applicants/", views.employment_applications, name="applicants-list"),
-    path("reject", csrf_exempt(views.reject), name="reject-application"),
+    path("rejected", csrf_exempt(views.reject), name="reject-application"),
     path("applicant/<int:pk>", views.applicant_details, name="applicant-details"),
+    path("all_applicants", views.all_applicants, name="submitted-applicants-api"),
     # Matches any html file
     # re_path(r"^.*\.*", views.pages, name="pages"),
 ]

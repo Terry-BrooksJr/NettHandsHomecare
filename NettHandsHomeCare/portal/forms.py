@@ -34,15 +34,32 @@ class EmployeeForm(forms.ModelForm):
             "city",
             "email",
             "department",
-            # "username",
             "phone",
             "state",
             "zipcode",
             "pre_service_completion_date",
             "job_title",
+            "aps_check_passed",
+            "ethnicity",
+            "family_hca",
+            "hhs_oig_exclusionary_check_completed",
+            "hhs_oig_exclusionary_check_verification",
+            "language",
+            "cpr_verification",
+            "pre_training_verification",
+            "qualifications",
             "hire_date",
+            "race",
+            "qualifications_verification",
+            "contract_code",
         )
-
+        labels = {
+            "language": _(
+                "Language Preference",
+            ),
+            "family_hca": _("Are You Related By Blood or Marriage to your patient?"),
+            "qualifications": _("Highest Level of Education/Home Healthcare Qualification")
+        }
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -105,6 +122,32 @@ class EmployeeForm(forms.ModelForm):
                 ),
                 css_class="form-row ",
             ),
+               Row(
+                Column(
+                    "language",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0",
+                ),
+                           Column(
+                    "ethnicity",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0",
+                ),
+                                   Column(
+                    "race",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0",
+                ),
+                css_class="form-row ",
+            ),
+            Row(
+                Column("family_hca", css_class="form-group col-md-12 mb-0"),
+                css_class="form-row",
+            ),
+                        Row(
+                Column("qualifications", css_class="form-group col-md-12 mb-0"),
+                css_class="form-row",
+            ),
             HTML("""</div> """),
             HTML("""<hr class="my-4 />"""),
             HTML(
@@ -160,6 +203,37 @@ class EmployeeForm(forms.ModelForm):
             ),
             HTML("""</div> """),
             HTML("""<hr class="my-4 />"""),
+            HTML(
+                """
+        <h6 class="small-heading muted-text mb-4">Emergency Contact</strong></h6>
+        <div class="pl-lg-4">
+
+        """,
+            ),
+            Row(
+                Column(
+                    "emergency_contact_first_name",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0 editable ",
+                ),
+                Column(
+                    "emergency_contact_last_name",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0 editable ",
+                ),
+                Column(
+                    "emergency_contact_phone",
+                    readonly=True,
+                    css_class="form-group col-lg-4 mb-0 editable ",
+                ),
+                Column(
+                    "emergency_contact_relationship",
+                    readonly=True,
+                    css_class="form-group col-lg-8 mb-0 editable ",
+                ),
+                css_class="form-row",
+            ),
+                      HTML("""<hr class="my-4 />"""),
             HTML(
                 """
         <h6 class="small-heading muted-text mb-4">Emergency Contact</strong></h6>

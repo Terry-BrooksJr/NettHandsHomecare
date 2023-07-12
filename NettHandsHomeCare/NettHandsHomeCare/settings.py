@@ -37,12 +37,9 @@ INSTALLED_APPS = [
     "portal",
     "phonenumber_field",
     "localflavor",
+    "minio_storage",
 ]
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -105,9 +102,24 @@ LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/Chicago"
 USE_I18N = True
 USE_TZ = True
-STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_ROOT = f"{BASE_DIR}/staticfiles"
+STATIC_URL = '/static/'
+STATIC_ROOT = './static_files/'
+# STATIC_ROOT = f"{BASE_DIR}/staticfiles"
+DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
+STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_STORAGE_ACCESS_KEY")
+MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_STORAGE_SECRET_KEY")
+MINIO_STORAGE_MEDIA_BUCKET_NAME = "employee-uploads"
+MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
+MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
+MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
+MINIO_STORAGE_ENDPOINT = "localhost:9000"
+MINIO_STORAGE_USE_HTTPS = False
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = 'Recycle Bin'
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = '%c/'
+MINIO_STORAGE_STATIC_BUCKET_NAME = 'local-static'

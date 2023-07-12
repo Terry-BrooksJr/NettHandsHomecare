@@ -106,38 +106,57 @@ def profile(request):
         "job_title": user.job_title,
         "emergency_contact_relationship": user.emergency_contact_relationship,
         "hire_date": user.hire_date,
+        "aps_check_passed": user.aps_check_passed,
+        "aps_check_verification": user.aps_check_verification,
+        "cpr_verification": user.cpr_verification,
+        "family_hca": user.family_hca,
+        "hhs_oig_exclusionary_check_completed": user.hhs_oig_exclusionary_check_completed, 
+        "hhs_oig_exclusionary_check_verification": user.hhs_oig_exclusionary_check_verification,
+        "language": user.language,
+        "pre_training_verification": user.pre_training_verification,
+        "qualifications": user.qualifications,
+        "qualifications_verification": user.qualifications_verification,
+        "training_exempt": user.training_exempt
     }
 
     if request.method == "POST":
         ic("POST Path")
         user = Employee.objects.get(username=request.user.username)
         # create a form instance and populate it with data from the request:
-        form = EmployeeForm(request.POST)
-        ic(form.data.get("social_security"))
+        form = EmployeeForm(request.POST, request.FILES)
 
         # check whether it's valid:
         # if form.has_error("social_security","username"):
         #     if form.is_valid():
         # try:
+        user.aps_check_passed = form.data.get("aps_check_passed")
+        user.cpr_verification = form.data.get("cpr_verification")
+        user.family_hca = form.data.get("family_hca")
+        user.hhs_oig_exclusionary_check_completed = form.data.get("hhs_oig_exclusionary_check_completed")
+        user.hhs_oig_exclusionary_check_verification = form.data.get("hhs_oig_exclusionary_check_verification")
+        user.language = form.data.get("language")
+        user.pre_training_verification = form.data.get("pre_training_verification")
+        user.qualifications = form.data.get("qualifications")
         user.social_security = form.data.get("social_security")
         user.street_address = form.data.get("street_address")
         user.phone = form.data.get("phone")
+        user.qualifications_verification = form.data.get("qualifications_verification")
         user.zipcode = form.data.get("zipcode")
         user.middle_name = form.data.get("middle_name")
         user.emergency_contact_relationship = form.data.get(
-            "emergency_contact_relationship",
+            "emergency_contact_relationship"
         )
         user.email = form.data.get("email")
         user.emergency_contact_first_name = form.data.get(
-            "emergency_contact_first_name",
+            "emergency_contact_first_name"
         )
-        user.emergency_contact_last_name = form.data.get("emergency_contact_last_name")
         user.first_name = form.data.get("first_name")
         user.last_name = form.data.get("last_name")
         user.city = form.data.get("city")
         user.state = form.data.get("state")
         user.department = form.data.get("department")
         user.gender = form.data.get("gender")
+
         user.save()
         return redirect(reverse("profile"))
 
@@ -285,3 +304,11 @@ def reject(request):
     except Exception as e:
         ic(e)
         return HttpResponse(status=418)
+
+def all_applicants(request):
+    inquiries = EmploymentApplicationModel.objects.all().values()
+    applicant_json = json.dumps(list(inquiries), cls=DjangoJSONEncoder)
+    return HttpResponse(content=applicant_json, status=200)
+
+def employee_roster(request):
+    employees = Employee.objects.all().order_by("last_name")
