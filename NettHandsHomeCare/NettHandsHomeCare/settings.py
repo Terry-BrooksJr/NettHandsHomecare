@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-
+from google.oauth2 import service_account
 from dotenv import load_dotenv
 
 # NOTE: Loads env Variables
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "localflavor",
     "minio_storage",
+    "google",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -109,8 +110,7 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 STATIC_ROOT = './static_files/'
 # STATIC_ROOT = f"{BASE_DIR}/staticfiles"
-DEFAULT_FILE_STORAGE = "minio_storage.storage.MinioMediaStorage"
-STATICFILES_STORAGE = "minio_storage.storage.MinioStaticStorage"
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 MINIO_STORAGE_USE_HTTPS = False
 MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_STORAGE_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_STORAGE_SECRET_KEY")
@@ -123,3 +123,12 @@ MINIO_STORAGE_USE_HTTPS = False
 MINIO_STORAGE_MEDIA_BACKUP_BUCKET = 'Recycle Bin'
 MINIO_STORAGE_MEDIA_BACKUP_FORMAT = '%c/'
 MINIO_STORAGE_STATIC_BUCKET_NAME = 'local-static'
+GS_BUCKET_NAME = os.getenv("GCP_BUCKET")
+    
+DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+    
+MEDIA_URL = "https://console.cloud.google.com/storage/browser/nhhc_cloud_storage"
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, "credentials.json")
+)

@@ -141,3 +141,4 @@ GitHub.sublime-settings
 !.env.vault
 NettHandsHomeCare/node_modules/*
 NettHandsHomeCare/static/vendor/jvectormap-next/jquery-jvectormap.min.js.map
+*/credentials.json
