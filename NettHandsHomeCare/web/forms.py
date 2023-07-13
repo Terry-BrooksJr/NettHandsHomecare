@@ -2,16 +2,18 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column
 from crispy_forms.layout import HTML
 from crispy_forms.layout import Layout
-from crispy_forms.layout import Row
+from crispy_forms.layout import Row, Field
 from crispy_forms.layout import Submit
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from web.models import ClientInterestSubmissions
 from web.models import EmploymentApplicationModel
+from captcha.fields import ReCaptchaField
 
 
 class ClientInterestForm(forms.ModelForm):
     """Form definition for ClientInterestSubmission."""
+    captcha = ReCaptchaField()
 
     class Meta:
         """Meta definition for ClientInterestSubmissionform."""
@@ -25,11 +27,13 @@ class ClientInterestForm(forms.ModelForm):
             "zipcode",
             "insurance_carrier",
             "desired_service",
+            "captcha",
         )
 
 
 class EmploymentApplicationForm(forms.ModelForm):
     """Form definition for EmploymentApplicationModel."""
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -80,6 +84,7 @@ class EmploymentApplicationForm(forms.ModelForm):
                 Column("availability_sunday", css_class="form-group col-md- mb-0"),
                 css_class="form-row",
             ),
+            Field('captcha', placeholder="Enter captcha"),
             Submit("submit", "Submit Application"),
         )
 
@@ -106,6 +111,7 @@ class EmploymentApplicationForm(forms.ModelForm):
             "availability_friday",
             "availability_saturday",
             "availability_sunday",
+            "captcha",
         )
         labels = {
             "ipdh_registered": _(

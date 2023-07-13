@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "localflavor",
     "minio_storage",
     "google",
+    "captcha",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -127,8 +128,9 @@ GS_BUCKET_NAME = os.getenv("GCP_BUCKET")
     
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
     
-MEDIA_URL = "https://console.cloud.google.com/storage/browser/nhhc_cloud_storage"
+MEDIA_URL = "https://console.cloud.google.com/storage/browser/nhhc_cloud_storage/"
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, "credentials.json")
 )
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
