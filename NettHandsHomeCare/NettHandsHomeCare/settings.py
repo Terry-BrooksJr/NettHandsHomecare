@@ -23,6 +23,7 @@ ALLOWED_HOSTS = [
     "localhost",
     "nett-hands-site-and-portal.onrender.com",
     "www.netthandshome.care",
+    "*",
 ]
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -40,10 +41,12 @@ INSTALLED_APPS = [
     "minio_storage",
     "google",
     "captcha",
+    "corsheaders",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -108,10 +111,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_URL = '/static/'
-STATIC_ROOT = './static_files/'
+STATIC_URL = "/static/"
+STATIC_ROOT = "./static_files/"
 # STATIC_ROOT = f"{BASE_DIR}/staticfiles"
-STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 MINIO_STORAGE_USE_HTTPS = False
 MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_STORAGE_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_STORAGE_SECRET_KEY")
@@ -121,16 +124,19 @@ MINIO_STORAGE_AUTO_CREATE_STATIC_BUCKET = True
 MINIO_STORAGE_MEDIA_OBJECT_METADATA = {"Cache-Control": "max-age=1000"}
 MINIO_STORAGE_ENDPOINT = "localhost:9000"
 MINIO_STORAGE_USE_HTTPS = False
-MINIO_STORAGE_MEDIA_BACKUP_BUCKET = 'Recycle Bin'
-MINIO_STORAGE_MEDIA_BACKUP_FORMAT = '%c/'
-MINIO_STORAGE_STATIC_BUCKET_NAME = 'local-static'
+MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
+MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
+MINIO_STORAGE_STATIC_BUCKET_NAME = "local-static"
 GS_BUCKET_NAME = os.getenv("GCP_BUCKET")
-    
+
 DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-    
+
 MEDIA_URL = "https://console.cloud.google.com/storage/browser/nhhc_cloud_storage/"
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     os.path.join(BASE_DIR, "credentials.json")
 )
-SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"https://storage.googleapis.com/nhhc_cloud_storage/*",
+]

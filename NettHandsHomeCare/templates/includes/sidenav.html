@@ -41,13 +41,6 @@
         </h6>
         <!-- Navigation -->
         <ul class="navbar-nav mb-md-3">
-
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'profile' %}">
-              <i class="ni ni-fat-add text-pink"></i>
-              <span class="nav-link-text">Create New Employee</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'profile' %}">
               <i class="ni ni-chart-bar-32 text-green"></i>
@@ -73,8 +66,14 @@
             </a>
           </li>
           {% else %}
-
           {% endif %}
+          <hr class="my-3"/>
+                                    <li class="nav-item">
+            <a class="nav-link" href="{% url 'roster' %}">
+              <i class="ni ni-bullet-list-67 text-blue"></i>
+              <span class="nav-link-text">Log Off</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>

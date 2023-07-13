@@ -1,15 +1,14 @@
+import csv
 import json
 import os
 
+import pendulum
 from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
-from django.http import HttpResponse
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
-from django.shortcuts import render
-from django.shortcuts import reverse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render, reverse
 from django.template import loader
 from django.urls import reverse
 from django.views.generic.detail import DetailView
@@ -17,8 +16,9 @@ from icecream import ic
 from portal.forms import EmployeeForm
 from portal.models import Employee
 from web.forms import ClientInterestForm
-from web.models import ClientInterestSubmissions
-from web.models import EmploymentApplicationModel
+from web.models import ClientInterestSubmissions, EmploymentApplicationModel
+
+now = pendulum.now(tz="America/Chicago")
 
 
 @login_required(login_url="/login/")
@@ -355,6 +355,7 @@ def employee_roster(request):
     context = dict()
     employees = Employee.objects.all().order_by("last_name")
     context["employees"] = employees
+    context["showSearch"] = True
     return render(request, "home/employee-listing.html", context)
 
 
@@ -443,3 +444,50 @@ def employee_details(request, pk):
             template_name="home/profile.html",
             context=context,
         )
+
+
+def employee_report_export():
+    employees = Employee.objects.all().values()
+    employee_json = json.dumps(list(employees), cls=DjangoJSONEncoder)
+    return HttpResponse(content=employee_json, status=200)
+
+
+def generate_report(requst):
+    sessionDataCSV = f"TTPUpload{now.to_date_string()}.csv"
+    sessions = employee_report_export()
+    with open(sessionDataCSV, "w+") as csv_output_file_pointer:
+        csv_writer = csv.writer(csv_output_file_pointer)
+        # Writing headers of CSV file
+        header = (
+            "SSN",
+            "FirstName",
+            "LastName",
+            "MiddleName",
+            "DateOfBirth",
+            "Gender",
+            "EmailAddress",
+            "Ethnicity",
+            "Race",
+            "Qualifications",
+            "LanguageCode",
+            "ContractNumber",
+            "EmployeeTitle",
+            "TitleStartDate",
+            "CaseLoad",
+            "Prior to 10/01/2021",
+            "TrainingDate",
+            "InitialCBC",
+            "MostCurrentCBC",
+        )
+        csv_writer.writerow(header)
+        for employee in employees:
+                row_data = (
+                    employee["social_security"],
+                    employee["first_name"],
+                    employee["last_name"],
+                    employee["middle_name"],
+                    employee["max_score"],
+                )
+                csv_writer.writerow(row_data)
+                os.open(sessionDataCSV, os.O_NONBLOCK)
+    print("As You Wish mi'lord. One CSV Coming up")

@@ -27,6 +27,7 @@ django-storages = "^1.13.2"
 google-api-python-client = "^2.93.0"
 google-cloud-storage = "^2.10.0"
 django-recaptcha = "^3.0.0"
+django-cors-headers = "^4.2.0"
 
 [tool.poetry.group.dev.dependencies]
 icecream = "^2.1.3"

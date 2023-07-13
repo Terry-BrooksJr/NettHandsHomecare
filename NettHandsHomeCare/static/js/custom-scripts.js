@@ -131,8 +131,8 @@ document.getElementById('searchbar').addEventListener('blur', search_entires)
 // !SECTION
 
 // SECTION - JQUERY AJAX Post Request to update
-function ntfy(cb) {
-  alert('Submission Marked as Reviewed')
+function ntfy(message) {
+  alert(message)
   console.info('Getting Ready to Reload Page')
   reloadPage()
 };
@@ -154,7 +154,7 @@ function markSubmissionAsReviewed(pk) {
     url: '/reviewed',
     data: data,
     type: 'POST',
-    success: ntfy()
+    success: ntfy("Submission Marked as Reviewed")
   });
 };
 
@@ -167,11 +167,7 @@ function hireApplicant(pk) {
     url: '/hired',
     data: data,
     type: 'POST',
-    success: function (response) {
-      const obj = JSON.parse(response.responseText);
-      alert(`New Employee Username: ${obj.username}
-      \n New Employee Password: ${obj.password}`)
-    }
+    success: ntfy("Applicant Hired - Email and Username Have Been Emailed")
   }
   )
 };

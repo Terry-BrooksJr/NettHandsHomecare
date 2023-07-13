@@ -13,6 +13,7 @@ from captcha.fields import ReCaptchaField
 
 class ClientInterestForm(forms.ModelForm):
     """Form definition for ClientInterestSubmission."""
+
     captcha = ReCaptchaField()
 
     class Meta:
@@ -33,6 +34,7 @@ class ClientInterestForm(forms.ModelForm):
 
 class EmploymentApplicationForm(forms.ModelForm):
     """Form definition for EmploymentApplicationModel."""
+
     captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
@@ -84,7 +86,7 @@ class EmploymentApplicationForm(forms.ModelForm):
                 Column("availability_sunday", css_class="form-group col-md- mb-0"),
                 css_class="form-row",
             ),
-            Field('captcha', placeholder="Enter captcha"),
+            Field("captcha", placeholder="Enter captcha"),
             Submit("submit", "Submit Application"),
         )
 

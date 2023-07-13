@@ -331,6 +331,20 @@ files = [
 ]
 
 [[package]]
+name = "django-cors-headers"
+version = "4.2.0"
+description = "django-cors-headers is a Django application for handling the server headers required for Cross-Origin Resource Sharing (CORS)."
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "django_cors_headers-4.2.0-py3-none-any.whl", hash = "sha256:9ada212b0e2efd4a5e339360ffc869cb21ac5605e810afe69f7308e577ea5bde"},
+    {file = "django_cors_headers-4.2.0.tar.gz", hash = "sha256:f9749c6410fe738278bc2b6ef17f05195bc7b251693c035752d8257026af024f"},
+]
+
+[package.dependencies]
+Django = ">=3.2"
+
+[[package]]
 name = "django-crispy-forms"
 version = "2.0"
 description = "Best way to have Django DRY forms"
@@ -1574,4 +1588,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "2af64b0adbc6b671949ef727fe37b5ee7717e7df24a33a1d0262e1238c1ca976"
+content-hash = "914651100c44245e1bea2321d71a0a3eb6c3999d2b303649ba88c3769179192f"

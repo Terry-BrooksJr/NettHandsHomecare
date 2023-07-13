@@ -59,7 +59,6 @@ class EmployeeForm(forms.ModelForm):
             "cpr_verification",
             "pre_training_verification",
             "qualifications",
-            "hire_date",
             "race",
             "qualifications_verification",
             "contract_code",
@@ -117,7 +116,7 @@ class EmployeeForm(forms.ModelForm):
             Row(
                 Column(
                     "hire_date",
-                    readonly=True,
+                    editable=False,
                     css_class="form-group col-lg-4 mb-0",
                 ),
                 Column(
@@ -246,32 +245,27 @@ class EmployeeForm(forms.ModelForm):
             HTML("""<hr class="my-4 />"""),
             HTML(
                 """
-        <h6 class="small-heading muted-text mb-4">Emergency Contact</strong></h6>
+        <h6 class="small-heading muted-text mb-4">Supporting Documentation</strong></h6>
         <div class="pl-lg-4">
 
         """,
             ),
             Row(
                 Column(
-                    "emergency_contact_first_name",
+                    "hhs_oig_exclusionary_check_verification",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0 editable ",
                 ),
                 Column(
-                    "emergency_contact_last_name",
+                    "pre_training_verification",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0 editable ",
                 ),
                 Column(
-                    "emergency_contact_phone",
+                    "qualifications_verification",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0 editable ",
-                ),
-                Column(
-                    "emergency_contact_relationship",
-                    readonly=True,
-                    css_class="form-group col-lg-8 mb-0 editable ",
-                ),
+                ), 
                 css_class="form-row",
             ),
             Row(
