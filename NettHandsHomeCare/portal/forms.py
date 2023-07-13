@@ -25,7 +25,7 @@ class ContractForm(forms.ModelForm):
 
 class EmployeeForm(forms.ModelForm):
     """Form definition for Employee Model."""
-
+    contract_code = forms.ModelChoiceField(queryset=Contract.objects.all())
     class Meta:
         """Meta definition for EmployeeForm."""
 
@@ -72,6 +72,9 @@ class EmployeeForm(forms.ModelForm):
             "qualifications": _(
                 "Highest Level of Education/Home Healthcare Qualification",
             ),
+            "qualifications_verification": _("Upload Degree, GED or Diploma"),
+            "cpr_verification": _("CPR Card"),
+            "pre_training_verification": _("24 Hour Pre-Training Certificate")
         }
 
     def __init__(self, *args, **kwargs):
@@ -115,19 +118,14 @@ class EmployeeForm(forms.ModelForm):
             ),
             Row(
                 Column(
-                    "hire_date",
-                    editable=False,
-                    css_class="form-group col-lg-4 mb-0",
-                ),
-                Column(
                     "job_title",
                     readonly=True,
-                    css_class="form-group col-lg-4 mb-0",
+                    css_class="form-group col-lg-6 mb-0",
                 ),
                 Column(
                     "department",
                     readonly=True,
-                    css_class="form-group col-lg-4 mb-0",
+                    css_class="form-group col-lg-6 mb-0",
                 ),
                 css_class="form-row ",
             ),
@@ -238,7 +236,7 @@ class EmployeeForm(forms.ModelForm):
                 Column(
                     "emergency_contact_relationship",
                     readonly=True,
-                    css_class="form-group col-lg-8 mb-0 editable ",
+                    css_class="form-group col-lg-12 mb-0 editable ",
                 ),
                 css_class="form-row",
             ),
@@ -252,7 +250,7 @@ class EmployeeForm(forms.ModelForm):
             ),
             Row(
                 Column(
-                    "hhs_oig_exclusionary_check_verification",
+                    "cpr_verification",
                     readonly=True,
                     css_class="form-group col-lg-4 mb-0 editable ",
                 ),
@@ -264,6 +262,7 @@ class EmployeeForm(forms.ModelForm):
                 Column(
                     "qualifications_verification",
                     readonly=True,
+                    help_text = "Please upload a copy of the document selected in the User Information field - Highest Level of Education/Home Healthcare Qualification",
                     css_class="form-group col-lg-4 mb-0 editable ",
                 ), 
                 css_class="form-row",

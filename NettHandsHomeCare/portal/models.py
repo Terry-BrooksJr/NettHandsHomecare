@@ -31,7 +31,7 @@ class Contract(models.Model):
     code = models.CharField(max_length=10, unique=True)
 
     def __str__(self):
-        return "self.code"
+        return self.code
 
 
 class Employee(AbstractUser):
@@ -212,7 +212,7 @@ class Employee(AbstractUser):
     zipcode = USZipCodeField(null=True)
     contract_code = models.ForeignKey(
         Contract,
-        choices=Contract.objects.all(),
+        # choices=Contract.objects.all(),
         on_delete=models.PROTECT,
         null=True,
         blank=True,

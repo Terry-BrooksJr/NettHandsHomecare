@@ -57,6 +57,8 @@
               <p><span class="green">{{ request.user.pre_service_completion_date }}</span> </p>
               {% endif %}
               <h3>Fingerprinting Status Completion:</h3><br/><p class="animate__animated red animate__pulse animate__infinite">{{ request.user.idph_background_check_completion_date | default:"Pending" }}</p>
+              <h3>Hire Date:</h3><br/><p>{{ request.user.hire_date }}</p>
+
               {# djlint:on #}
 
             </div>
@@ -70,6 +72,7 @@
           <div class="row align-items-center">
             <div class="col-8">
               <h3 class="mb-0">Employee Profile </h3>
+              {% comment %} {% if request.user.username != %} {% endcomment %}
             </div>
           </div>
         </div>
@@ -104,8 +107,13 @@
                 </div>
                                 <div class="col-4">
                     <h5>Contract Code</h5>
+                    {{ form.contract_code }}
                 </div>
             </div>
+            <div class="row">
+
+            </div>
+
             <hr class="my-4" />
         {% endif %}
 

@@ -54,6 +54,7 @@ def profile_view(request):
         "job_title": user.job_title,
         "hire_date": user.hire_date,
     }
+    context['user'] = init_values
     context["form"] = EmployeeForm(initial=init_values)
     return render(request=request, template_name="home/profile.html", context=context)
 
@@ -434,6 +435,16 @@ def employee_details(request, pk):
         user.state = form.data.get("state")
         user.department = form.data.get("department")
         user.gender = form.data.get("gender")
+        user.race = form.data.get("race")
+        user.language =  form.data.get("language")
+        user.date_of_birth = form.data.get("date_of_birth")
+        user.aps_check_passed = form.data.get("aps_check_passed")
+        user.hhs_oig_exclusionary_check_completed = form.data.get("hhs_oig_exclusionary_check_completed")
+        user.idph_background_check_completed = form.data.get("idph_background_check_completed")
+        user.family_hca = form.data.get("family_hca")
+        user.idph_background_check_completion_date = form.data.get("idph_background_check_completion_date")
+        user.training_exempt = form.data.get("training_exempt")
+        user.qualifications = form.data.get("qualifications")
         user.save()
         return redirect(reverse("profile"))
 
@@ -446,7 +457,7 @@ def employee_details(request, pk):
         )
 
 
-def employee_report_export():
+def employee_report_export(request):
     employees = Employee.objects.all().values()
     employee_json = json.dumps(list(employees), cls=DjangoJSONEncoder)
     return HttpResponse(content=employee_json, status=200)

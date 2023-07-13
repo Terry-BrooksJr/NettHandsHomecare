@@ -30,6 +30,7 @@ urlpatterns = [
     path("applicant/<int:pk>", views.applicant_details, name="applicant-details"),
     path("all_applicants", views.all_applicants, name="submitted-applicants-api"),
     path("roster/", views.employee_roster, name="roster"),
+    path("all-employees/", views.employee_report_export, name="employee-export"),
     # Matches any html file
     # re_path(r"^.*\.*", views.pages, name="pages"),
 ]
