@@ -1,8 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-
-
 from employee.models import Employee
+
 
 class Contract(models.Model):
     code = models.CharField(max_length=10, unique=True)
@@ -16,14 +15,14 @@ class Contract(models.Model):
         verbose_name = "State Contract"
         verbose_name_plural = "State Contracts"
 
+
 class Compliance(models.Model):
-    
     class JOB_TITLE(models.TextChoices):
         AIDE = "AIDE", _("Homecare Aide")
         COORDINATOR = "CARE_COORDINATOR", _("Care Coordinator")
         CC_SUPERVISOR = "CARE_COORDINATOR_SUPERVISOR", _("Care Coordinator Supervisor")
         HC_SUPERVISOR = "HOMECARE_SUPERVISOR", _("Homecare Supervisor")
-        
+
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
     aps_check_passed = models.BooleanField(null=True, blank=True)
     aps_check_verification = models.FileField(
@@ -78,6 +77,7 @@ class Compliance(models.Model):
 
     def __str__(self):
         return str(self.employee.first_name)
+
     class Meta:
         db_table = "audit_compliance"
         ordering = ["employee"]

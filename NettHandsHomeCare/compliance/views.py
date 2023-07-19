@@ -12,6 +12,7 @@ def employee_report_export(request):
     employee_json = json.dumps(list(employees), cls=DjangoJSONEncoder)
     return HttpResponse(content=employee_json, status=200)
 
+
 def generate_report(requst):
     sessionDataCSV = f"TTPUpload{now.to_date_string()}.csv"
     sessions = employee_report_export()

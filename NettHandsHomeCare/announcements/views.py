@@ -1,7 +1,9 @@
-from django.shortcuts import render
-from announcements.models import Announcements
 from announcements.forms import AnnouncementForm
+from announcements.models import Announcements
+from django.shortcuts import render
+
 # Create your views here.
+
 
 def announcements(request):
     context = dict()

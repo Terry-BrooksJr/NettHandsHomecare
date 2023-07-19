@@ -21,7 +21,7 @@ else:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     ENVIRONMENT_NAME = "Production server"
-    ENVIRONMENT_COLOR = "#FF2222"       
+    ENVIRONMENT_COLOR = "#FF2222"
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -31,7 +31,7 @@ ALLOWED_HOSTS = [
     "0.0.0.0",
 ]
 INSTALLED_APPS = [
-       'django_admin_env_notice',
+    "django_admin_env_notice",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -80,7 +80,6 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.contrib.messages.context_processors.messages",
                 "django_admin_env_notice.context_processors.from_settings",
-
             ],
         },
     },
@@ -94,7 +93,7 @@ if DEBUG is False:
             "NAME": os.environ.get("DB_NAME"),
             "USER": os.environ.get("DB_USER"),
             "PASSWORD": os.environ.get("DB_PASSWORD"),
-            "HOST": os.getenv("DB_HOST"), 
+            "HOST": os.getenv("DB_HOST"),
             "PORT": os.getenv("DB_PORT"),
         },
     }
@@ -205,7 +204,7 @@ LOGGING = {
     },
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = os.getenv("EMAIL_SERVER")
 EMAIL_USE_TLS = True
 EMAIL_PORT = os.getenv("EMAIL_TSL_PORT")

@@ -1,3 +1,4 @@
+from compliance.models import Contract
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.bootstrap import Modal
 from crispy_forms.bootstrap import UneditableField
@@ -11,8 +12,8 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from compliance.models import Contract
 from employee.models import Employee
+
 
 class EmployeeForm(forms.ModelForm):
     """Form definition for Employee Model."""
@@ -251,4 +252,3 @@ class EmployeeForm(forms.ModelForm):
                 css_class="form-row",
             ),
         )
-

@@ -1,3 +1,5 @@
+from compliance.models import Compliance
+from compliance.models import Contract
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.bootstrap import Modal
 from crispy_forms.bootstrap import UneditableField
@@ -11,8 +13,6 @@ from crispy_forms.layout import Submit
 from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from compliance.models import Compliance
-from compliance.models import Contract 
 
 
 class ContractForm(forms.ModelForm):
@@ -23,6 +23,7 @@ class ContractForm(forms.ModelForm):
 
         model = Contract
         fields = "__all__"
+
 
 class ComplianceForm(forms.ModelForm):
     class Meta:
@@ -63,7 +64,9 @@ class ComplianceForm(forms.ModelForm):
             "aps_check_verification": _("APS Work Eligibility Verification"),
             "aps_check_passed": _("APS Work Eligibility Checked?"),
             "idph_background_check_completed": _("IDPH Background Check"),
-            "idph_background_check_verification": _("Upload Most Recent Background Check")
+            "idph_background_check_verification": _(
+                "Upload Most Recent Background Check",
+            ),
         }
 
     def __init__(self, *args, **kwargs):
@@ -94,9 +97,11 @@ class ComplianceForm(forms.ModelForm):
         """,
             ),
             Row(
-                Column(          "job_title",
+                Column(
+                    "job_title",
                     readonly=True,
-                    css_class="form-group col-12 mb-0 editable ",)
+                    css_class="form-group col-12 mb-0 editable ",
+                ),
             ),
             Row(
                 Column(
@@ -159,7 +164,7 @@ class ComplianceForm(forms.ModelForm):
                 ),
                 css_class="form-row",
             ),
-                        Row(
+            Row(
                 Column(
                     "idph_background_check_verification",
                     readonly=True,

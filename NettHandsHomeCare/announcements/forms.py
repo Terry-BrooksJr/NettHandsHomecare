@@ -1,3 +1,4 @@
+from announcements.models import Announcements
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.bootstrap import Modal
 from crispy_forms.bootstrap import UneditableField
@@ -12,7 +13,6 @@ from django import forms
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
-from announcements.models import Announcements
 
 class AnnouncementForm(forms.ModelForm):
     class Meta:
@@ -51,4 +51,3 @@ class AnnouncementForm(forms.ModelForm):
                 ),
             ),
         )
-

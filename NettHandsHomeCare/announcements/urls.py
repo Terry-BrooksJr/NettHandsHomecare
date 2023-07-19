@@ -5,8 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from . import views
 
 urlpatterns = [
-        path("announcements", views.announcements, name="announcements"),
-        path(
+    path("announcements", views.announcements, name="announcements"),
+    path(
         "create-announcement-draft",
         views.save_announcement,
         name="create-announcement",

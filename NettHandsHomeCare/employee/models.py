@@ -1,5 +1,5 @@
-from django.db import models
 import pendulum
+from compliance.storage import PrivateGCSMediaStorage
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator
@@ -10,7 +10,7 @@ from localflavor.us.models import USSocialSecurityNumberField
 from localflavor.us.models import USStateField
 from localflavor.us.models import USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
-from compliance.storage import PrivateGCSMediaStorage
+
 
 # Create your models here.
 class Employee(AbstractUser):
@@ -42,7 +42,6 @@ class Employee(AbstractUser):
         HISPANIC = "HISPANIC", _("Hispanic/Latino")
         UNKNOWN = "UNKNOWN", _("Unknown")
         REFUSED = "REFUSED", _("Perfer Not To Disclose")
-
 
     class QUALIFICATIONS(models.TextChoices):
         HS_GED = "HIGH_SCHOOL_GED", _("High School Diploma/GED")
@@ -170,7 +169,13 @@ class Employee(AbstractUser):
         blank=True,
     )
 
-    family_hca = models.CharField(max_length=255,blank=True, null=True, choices=PATIENT_WORKER_RELATIONSHIP.choices, default=PATIENT_WORKER_RELATIONSHIP.NOT_RELATED)
+    family_hca = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        choices=PATIENT_WORKER_RELATIONSHIP.choices,
+        default=PATIENT_WORKER_RELATIONSHIP.NOT_RELATED,
+    )
 
     phone = PhoneNumberField(null=True)
     state = USStateField(null=True)
@@ -182,7 +187,6 @@ class Employee(AbstractUser):
     )
     zipcode = USZipCodeField(null=True)
 
- 
     hire_date = models.DateField(auto_now=True)
     qualifications = models.CharField(
         null=True,

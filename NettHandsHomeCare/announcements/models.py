@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from employee.models import Employee
+
+
 # Create your models here.
 class Announcements(models.Model):
     class STATUS(models.TextChoices):
@@ -37,8 +39,9 @@ class Announcements(models.Model):
 
     def repost(self):
         self.date_posted = now
+
     class Meta:
         db_table = "announcements"
-        ordering = ["-date_posted", "status","message_type" ]
+        ordering = ["-date_posted", "status", "message_type"]
         verbose_name = "Internal Announcement"
         verbose_name_plural = "Internal Announcements"

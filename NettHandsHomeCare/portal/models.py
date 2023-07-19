@@ -5,11 +5,11 @@ from django.core.validators import MaxValueValidator
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from employee.models import Employee
 from localflavor.us.models import USSocialSecurityNumberField
 from localflavor.us.models import USStateField
 from localflavor.us.models import USZipCodeField
 from phonenumber_field.modelfields import PhoneNumberField
-from  employee.models import Employee
 
 now = pendulum.now(tz="America/Chicago")
 
@@ -34,6 +34,7 @@ class Exception(models.Model):
         choices=STATUS.choices,
         default=STATUS.PENDING,
     )
+
     class Meta:
         db_table = "payroll_exceptions"
         ordering = ["-date"]

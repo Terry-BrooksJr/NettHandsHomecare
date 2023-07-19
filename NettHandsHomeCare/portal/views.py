@@ -3,6 +3,9 @@ import json
 import os
 
 import pendulum
+from announcements.forms import AnnouncementForm
+from announcements.models import Announcements
+from compliance.models import Compliance
 from django import template
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -10,19 +13,20 @@ from django.core.exceptions import PermissionDenied
 from django.core.files.storage import FileSystemStorage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import model_to_dict
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import redirect, render, reverse
+from django.http import HttpResponse
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.shortcuts import reverse
 from django.template import loader
 from django.urls import reverse
 from django.views.generic.detail import DetailView
-from icecream import ic
-from announcements.forms import AnnouncementForm
 from employee.forms import EmployeeForm
-from compliance.models import Compliance
 from employee.models import Employee
+from icecream import ic
 from web.forms import ClientInterestForm
-from web.models import ClientInterestSubmissions, EmploymentApplicationModel
-from announcements.models import Announcements
+from web.models import ClientInterestSubmissions
+from web.models import EmploymentApplicationModel
 
 now = pendulum.now(tz="America/Chicago")
 
@@ -56,8 +60,6 @@ def index(request):
 #     except template.TemplateDoesNotExist:
 #         html_template = loader.get_template("home/page-404.html")
 #         return HttpResponse(html_template.render(context, request))
-
-
 
 
 @login_required(login_url="/login/")
