@@ -1,31 +1,37 @@
 import os
 from pathlib import Path
-from google.oauth2 import service_account
+
 from dotenv import load_dotenv
+from google.oauth2 import service_account
 
 # NOTE: Loads env Variables
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
-DEBUG = True
+DEBUG = bool(os.getenv("DEBUG"))
 if DEBUG is True:
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
     CSRF_COOKIE_SECURE = False
+    ENVIRONMENT_NAME = "Development server"
+    ENVIRONMENT_COLOR = "#800080"
 else:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    ENVIRONMENT_NAME = "Production server"
+    ENVIRONMENT_COLOR = "#FF2222"       
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    "nett-hands-site-and-portal.onrender.com",
-    "www.netthandshome.care",
-    "*",
+    os.getenv("SERVER_NAME"),
+    os.getenv("DNS_NAME"),
+    "0.0.0.0",
 ]
 INSTALLED_APPS = [
+       'django_admin_env_notice',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -36,6 +42,9 @@ INSTALLED_APPS = [
     "crispy_bootstrap4",
     "web",
     "portal",
+    "employee",
+    "announcements",
+    "compliance",
     "phonenumber_field",
     "localflavor",
     "minio_storage",
@@ -68,27 +77,34 @@ TEMPLATES = [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
+                "django.template.context_processors.media",
                 "django.contrib.messages.context_processors.messages",
+                "django_admin_env_notice.context_processors.from_settings",
+
             ],
         },
     },
 ]
-AUTH_USER_MODEL = "portal.Employee"
+AUTH_USER_MODEL = "employee.Employee"
 WSGI_APPLICATION = "NettHandsHomeCare.wsgi.application"
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql",
-    #     "NAME": os.environ.get("DB_NAME"),
-    #     "USER": os.environ.get("DB_USER"),
-    #     "PASSWORD": os.environ.get("DB_PASSWORD"),
-    #     "HOST": os.environ.get("DB_HOST"),
-    #     "PORT": os.environ.get("DB_PORT"),
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "offline-db",
-    },
-    # },
-}
+if DEBUG is False:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ.get("DB_NAME"),
+            "USER": os.environ.get("DB_USER"),
+            "PASSWORD": os.environ.get("DB_PASSWORD"),
+            "HOST": os.getenv("DB_HOST"), 
+            "PORT": os.getenv("DB_PORT"),
+        },
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": "DB_Sandbox",
+        },
+    }
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -111,10 +127,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-STATIC_URL = "/static/"
-STATIC_ROOT = "./static_files/"
-# STATIC_ROOT = f"{BASE_DIR}/staticfiles"
-STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+STATIC_ROOT = "/staticfiles/"
+# STATICFILES_STORAGE = 'NettHandsHomeCare.gcsUtils.Static'
 MINIO_STORAGE_USE_HTTPS = False
 MINIO_STORAGE_ACCESS_KEY = os.getenv("MINIO_STORAGE_ACCESS_KEY")
 MINIO_STORAGE_SECRET_KEY = os.getenv("MINIO_STORAGE_SECRET_KEY")
@@ -128,15 +147,67 @@ MINIO_STORAGE_MEDIA_BACKUP_BUCKET = "Recycle Bin"
 MINIO_STORAGE_MEDIA_BACKUP_FORMAT = "%c/"
 MINIO_STORAGE_STATIC_BUCKET_NAME = "local-static"
 GS_BUCKET_NAME = os.getenv("GCP_BUCKET")
-
-DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
+STATIC_URL = "static/"
 
 MEDIA_URL = "https://console.cloud.google.com/storage/browser/nhhc_cloud_storage/"
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    os.path.join(BASE_DIR, "credentials.json")
+    os.path.join(BASE_DIR, "credentials.json"),
 )
-SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
+# SILENCED_SYSTEM_CHECKS = ["captcha.recaptcha_test_key_error"]
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"https://storage.googleapis.com/nhhc_cloud_storage/*",
 ]
+RECAPTCHA_PUBLIC_KEY = os.getenv("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.getenv("RECAPTCHA_PRIVATE_KEY")
+DATETIME_FORMAT = "m/d/yyyy h:mm A"
+ADMINS = [("Terry Brooks", "Terry@BrooksJr.com"), ("Admin", "admin@netthandshome.care")]
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "{levelname} {asctime} {module} {process:d} {thread:d} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "format": "{levelname} {message}",
+            "style": "{",
+        },
+    },
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "handlers": {
+        "console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "simple",
+        },
+        "mail_admins": {
+            "level": "ERROR",
+            "class": "django.utils.log.AdminEmailHandler",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "propagate": True,
+        },
+        "django.request": {
+            "handlers": ["mail_admins"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+    },
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv("EMAIL_SERVER")
+EMAIL_USE_TLS = True
+EMAIL_PORT = os.getenv("EMAIL_TSL_PORT")
+EMAIL_HOST_USER = os.getenv("NOTIFICATION_SENDER_EMAIL")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_ACCT_PASSWORD")

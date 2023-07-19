@@ -42,15 +42,13 @@
               {{ request.user.first_name }} {{ request.user.last_name }}
             </h5>
             <div class="h5 font-weight-300">
-              {{ request.user.get_job_title_display }}
+             <h3> {{ request.user.get_job_title_display }} </h3>
             </div>
             <div>
               {# djlint:off H021 #}
-              {% if request.user.in_compliance is False %}
-              <h3  class="animate__animated red animate__pulse animate__infinite">You Have Pending Training Task</h3>
-              {% endif %}
+      
               {% if request.user.pre_service_completion_date is None %}
-              <h3>Pre-Service Completion Date: \n<span class="red">Incomplete</span> </h3>
+              <h3>Pre-Service Completion Date: <br/> <span class="animate__animated red animate__pulse animate__infinite">Incomplete</span> </h3>
               {% else %}
               <br/>
               <h3>Pre-Service Completion Date:</h3><br/>
@@ -58,6 +56,10 @@
               {% endif %}
               <h3>Fingerprinting Status Completion:</h3><br/><p class="animate__animated red animate__pulse animate__infinite">{{ request.user.idph_background_check_completion_date | default:"Pending" }}</p>
               <h3>Hire Date:</h3><br/><p>{{ request.user.hire_date }}</p>
+              <h3>Most Recent Background Check:</h3><br/><p>{{ compliance.current_idph_background_check_completion_date  }}</p>
+              <h3>Initial Background Check::</h3><br/><p>{{ compliance.initial_idph_background_check_completion_date }}</p>
+              <h3>Training Exempt:</h3><br/>{% if compliance.training_exempt is True %}<p>Yes</p>{% elif compliance.training_exempt is None %}<p><span class="animate__animated red animate__pulse animate__infinite">Pending</span></p>{% else %} <p>No</p> {% endif %}
+              <h3>Adult Protective Services Completed:</h3><br/>{% if compliance.aps_check_passed is True %}<p>Yes - Work Eligible</p>{% elif compliance.training_exempt is None %}<p>Unknown</p>{% else %} <p><span class="animate__animated red animate__pulse animate__infinite">Yes - Not Work Eligible</span></p> {% endif %}
 
               {# djlint:on #}
 
@@ -72,6 +74,13 @@
           <div class="row align-items-center">
             <div class="col-8">
               <h3 class="mb-0">Employee Profile </h3>
+                      {% if request.user.in_compliance is False %}
+                    <div class="row">
+                      <div class="col-12  justify-items-center">
+              <h3  class="animate__animated red animate__pulse animate__infinite mx-auto">Your Profile Is Incomplete</h3>
+                      </div>
+            </div>
+              {% endif %}
               {% comment %} {% if request.user.username != %} {% endcomment %}
             </div>
           </div>
@@ -92,31 +101,6 @@
         {% crispy form %}
             <hr class="my-4" />
             <!-- Description -->
-        {% if user.is_staff %}
-
-            <h6 class="heading-small text-muted mb-4">Office Staff Only</h6>
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-4">
-            <h5>Adult Protective Services Check Completed?</h5>
-            {{ form.aps_check_passed }}
-                </div>
-                <div class="col-4">
-                    <h5>APS Verification</h5>
-                    {{ form.aps_check_verification }}
-                </div>
-                                <div class="col-4">
-                    <h5>Contract Code</h5>
-                    {{ form.contract_code }}
-                </div>
-            </div>
-            <div class="row">
-
-            </div>
-
-            <hr class="my-4" />
-        {% endif %}
-
             <h6 class="heading-small text-muted mb-4">Training and Certification</h6>
         </div>
       </div>

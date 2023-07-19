@@ -6,83 +6,111 @@
 .green {
     color: #50C878;
 }
-var c = class {
-  constructor() {
-    this.snackbarQueue = [],
-      this.time = performance.now(), this.loop()
+
+.outline-red {
+  border: 2px solid #ff0000;
+  background-color: #ffb6c1;
+}
+.outline-yellow {
+  border: 2px solid #f0ff00;
+  background-color: #fdffb6;
+}
+.outline-blue {
+  border: 2px solid #1100ff;
+  background-color: #b6c0ff;
+}
+.outline-black {
+  border: 2px solid #111;
+  background-color: #d3d3d3;
+}
+.bg-purple {
+  background-color: #6f42c1;
+
+}
+.form-text-area {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+}
+/* The sidebar menu */
+.sidebar {
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
   }
-  loop() {
-    let t = performance.now(),
-      e = (t - this.time) / 1e3;
-    this.time = t, document.hasFocus() && this.snackbarQueue.length && (this.snackbarQueue?.[0]?.el || (this.snackbarQueue[0].el = new a(this.snackbarQueue[0]), document.body.appendChild(this.snackbarQueue[0].el)), this.snackbarQueue[0]?.duration && this.snackbarQueue[0]?.duration !== 1 / 0 && this.snackbarQueue[0]?.el?.isConnected && (this.snackbarQueue[0].duration -= e, this.snackbarQueue[0].duration <= 0 && (this.snackbarQueue[0].el.remove(), this.snackbarQueue.splice(0, 1)))), window.requestAnimationFrame(this.loop.bind(this))
+
+  .sidebar a {
+    font-size: 18px;
   }
-  snackbar(t) {
-    let e = Object.assign({
-      message: "Snackbar notificaitons require a message",
-      el: null,
-      duration: 30,
-      closeable: !0,
-      buttons: [],
-      force: !0,
-      classes: [],
-      autofocus: !0
-    }, t);
-    Array.isArray(e.buttons) || (e.buttons = [e.buttons]), Array.isArray(e.classes) || (e.classes = [e.classes]), e.force && this.snackbarQueue.length ? (this.snackbarQueue[0]?.el?.isConnected && this.snackbarQueue[0].el.remove(), this.snackbarQueue.splice(0, 1, e)) : this.snackbarQueue.push(e)
-  }
-},
-  a = class extends HTMLElement {
-    constructor(t) {
-      super(), this.handleActionButtonClick = e => {
-        let s = e.currentTarget,
-          i = parseInt(s.dataset.index);
-        this.settings.buttons[i].callback(), this.remove()
-      }, this.handleCloseClickEvent = () => {
-        this.remove()
-      }, this.settings = t, this.render()
-    }
-    render() {
-      for (let e = 0; e < this.settings.classes.length; e++) this.classList.add(this.settings.classes[e]);
-      this.innerHTML = `
-            <p role="${this.settings.closeable || this.settings.buttons.length ? "alertdialog" : "alert"}">${this.settings.message}</p>
-            ${this.settings.closeable || this.settings.buttons.length ? `
-                <snackbar-actions>
-                    ${this.settings.buttons.map((e, s) => `<button ${e?.ariaLabel ? `aria-label="${e.ariaLabel}"` : ""} data-index="${s}" class="${e.classes?.join(" ")}">${e.label}</button>`)}
-                    ${this.settings.closeable ? `
-                        <button aria-label="close notification" class="close js-snackbar-close">
-                            <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="times" class="svg-inline--fa fa-times fa-w-10" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M207.6 256l107.72-107.72c6.23-6.23 6.23-16.34 0-22.58l-25.03-25.03c-6.23-6.23-16.34-6.23-22.58 0L160 208.4 52.28 100.68c-6.23-6.23-16.34-6.23-22.58 0L4.68 125.7c-6.23 6.23-6.23 16.34 0 22.58L112.4 256 4.68 363.72c-6.23 6.23-6.23 16.34 0 22.58l25.03 25.03c6.23 6.23 16.34 6.23 22.58 0L160 303.6l107.72 107.72c6.23 6.23 16.34 6.23 22.58 0l25.03-25.03c6.23-6.23 6.23-16.34 0-22.58L207.6 256z"></path></svg>
-                        </button>
-                    `: ""}
-                </snackbar-actions>
-            `: ""}
-        `, this.querySelectorAll("button[data-index]").forEach(e => {
-        e.addEventListener("click", this.handleActionButtonClick)
-      });
-      let t = this.querySelector(".close");
-      t && t.addEventListener("click", this.handleCloseClickEvent)
-    }
-    connectedCallback() {
-      if (this.settings.autofocus) {
-        let t = this.querySelector(".js-snackbar-close");
-        t && (document.activeElement.blur(), t.focus())
-      }
-      if (this.settings.buttons.length) {
-        for (let t = 0; t < this.settings.buttons.length; t++)
-          if (this.settings.buttons[t]?.autofocus) {
-            let e = this.querySelector(`button[data-index="${t}"]`);
-            if (e) {
-              document.activeElement.blur(), e.focus();
-              break
-            }
-          }
-      }
-    }
-  };
-customElements.get("snackbar-component") || customElements.define("snackbar-component", a);
-var n = new c,
-  l = n.snackbar.bind(n),
-  o = l,
-  r = o;
-export {
-  r as
-    default
-};
+}

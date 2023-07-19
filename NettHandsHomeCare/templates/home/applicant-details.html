@@ -5,7 +5,7 @@
 {% load replace_underscore %}
 {% load human_readable %}
 
-  <link rel="stylesheet" href="{% static 'css/custom-portal-styles.css' %}" type="text/css"/>
+  <link rel="stylesheet" href="{% static '/css/custom-portal-styles.css' %}" type="text/css"/>
 
 
 {% block content %}
@@ -135,11 +135,11 @@
     </div>
     </div>
 
-  {% include "includes/footer.html" %}
+  {% include "/includes/footer.html" %}
 
 {% endblock content %}
 
 <!-- Specific JS goes HERE -->
 {% block javascripts %}
-    <script src="{% static 'js/alerts.js' %}"></script>
+    <script src="{% static '/js/alerts.js' %}"></script>
 {% endblock javascripts %}

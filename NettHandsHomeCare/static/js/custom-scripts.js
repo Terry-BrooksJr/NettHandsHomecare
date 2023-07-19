@@ -187,8 +187,39 @@ function rejectApplicant(pk) {
 };
 
 
+function saveAnnouncementDraft(title, message, message_type) {
+  let data = {
+    "title": title,
+    "message": message,
+    "message_type": message_type
+  }
+  data = JSON.stringify(data)
+  $.ajax({
+    url: '/create-announcement-draft',
+    data: data,
+    type: 'POST',
+    success: ntfy("Draft Created")
+  }
+  )
+};
 
 
+function postAnnouncement(title, message, message_type) {
+  let data = {
+    "title": title,
+    "message": message,
+    "message_type": message_type
+  }
+  data = JSON.stringify(data)
+  $.ajax({
+    url: '/create-announcement-draft',
+    data: data,
+    type: 'POST',
+    success: ntfy("Draft Created")
+  }
+  )
+};
 // !SECTION
 
 // SECTION - SNACKBAR Notification
+/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */

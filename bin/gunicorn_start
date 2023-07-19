@@ -1,0 +1,28 @@
+#!/bin/bash
+# Name of the application
+NAME="NettHandsHomeCare_web_and_app"
+# Django project directory
+DJANGODIR=/Users/terry-brooksjr/Documents/GitHub/NettHandsHomeCare
+# we will communicte using this unix socket
+SOCKFILE=Users/terry-brooksjr/Documents/GitHub/NettHandsHomeCare/run/gunicorn.sock
+
+# how many worker processes should Gunicorn spawn
+NUM_WORKERS=3
+# which settings file should Django use
+DJANGO_SETTINGS_MODULE=NettHandsHomeCare.NettHandsHomeCare.settings
+# WSGI module name
+DJANGO_WSGI_MODULE=NettHandsHomeCare.NettHandsHomeCare.wsgi
+echo "Starting $NAME as `whoami`"
+# Activate the virtual environment
+cd $DJANGODIR
+# source ../bin/activate
+export DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE
+export PYTHONPATH=$DJANGODIR:$PYTHONPATH
+# Create the run directory if it doesn't exist
+RUNDIR=$(dirname $SOCKFILE)
+test -d $RUNDIR || mkdir -p $RUNDIR
+# Start your Django Unicorn
+# Programs meant to be run under supervisor should not daemonize themselves (do not use --daemon)
+exec gunicorn ${DJANGO_WSGI_MODULE} \
+--name $NAME \
+--workers $NUM_WORKERS 

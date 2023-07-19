@@ -4,13 +4,12 @@ Copyright (c) 2019 - present AppSeed.us
 # Create your views here.
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from django.shortcuts import redirect
 from django.shortcuts import render
 
 from .forms import LoginForm
 from .forms import SignUpForm
-from django.contrib.auth import logout
-
 
 
 def login_view(request):
@@ -62,7 +61,7 @@ def register_user(request):
         {"form": form, "msg": msg, "success": success},
     )
 
+
 def logout_view(request):
     logout(request)
     return redirect("/")
-

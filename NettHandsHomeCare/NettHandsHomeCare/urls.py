@@ -17,6 +17,10 @@ Including another URLconf
 import authentication.urls
 import portal.urls
 import web.urls
+import employee.urls
+import compliance.urls
+import announcements.urls
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -24,8 +28,12 @@ from django.urls import include
 from django.urls import path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("control-center/", admin.site.urls),
     path("", include(web.urls)),
     path("", include(authentication.urls)),
     path("", include(portal.urls)),
+    path("", include(employee.urls)),
+    path("", include(compliance.urls)),
+    path("", include(announcements.urls)),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -17571,3 +17571,17 @@ input.datetimepicker[data-color="yellow"] + .bootstrap-datetimepicker-widget {
   background: transparent; }
 
 /*# sourceMappingURL=argon.css.map */
+.outline-red {
+  border: 2px solid #ff0000;
+  background-color: #ffb6c1;
+}
+
+.outline-yellow {
+  border: 2px solid #f0ff00;
+  background-color: #fdffb6;
+}
+
+.outline-blue {
+  border: 2px solid #1100ff;
+  background-color: #b6c0ff;
+}

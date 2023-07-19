@@ -10,7 +10,8 @@ from localflavor.us.models import USStateField
 from localflavor.us.models import USZipCodeField
 from pendulum import now
 from phonenumber_field.modelfields import PhoneNumberField
-from portal.models import Employee
+from compliance.models import Compliance
+from employee.models import Employee
 
 now = now(tz="America/Chicago")
 
@@ -121,6 +122,8 @@ class EmploymentApplicationModel(models.Model):
         password = self.generate_random_password()
         new_employee.password = make_password(password)
         new_employee.save()
+        compliance = Compliance(employee=new_employee)
+        compliance.save()
         self.hired = True
         self.reviewed = True
         self.reviewed_by = hired_by

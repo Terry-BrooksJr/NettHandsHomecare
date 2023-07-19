@@ -30,23 +30,23 @@
 
           </div>
           <!-- Light table -->
-                        {% comment %} <ul class="nav nav-tabs">
+                         <ul class="nav nav-tabs">
                 <li class="tab nav-item">
-                  <a class="nav-link tab active" id="all" aria-current="page" href="#">{{ all_submuission }} Total Applications</a>
+                  <a class="nav-link tab active" id="active" aria-current="page" href="#">{{ active }} Active Employees Applications</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link tab" id="pending" href="#">{{ reviewed }} Applications Reviewed</a>
+                  <a class="nav-link tab" id="former" href="#">{{ former }} Former Employees</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link tab" id="reviewed" href="#">{{ unresponsed }} Applications Pending Review</a>
-                </li> {% endcomment %}
+                  <a class="nav-link tab" id="all" href="#">{{ all }} All Employees</a>
+                </li>
 
         </ul>
           <div class="table-responsive">
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th scope="col" class="sort" data-sort="name">Employee ID</th>
+                  <th scope="col" class="sort" data-sort="name">Username</th>
 
                   <th scope="col" class="sort" data-sort="budget">First Name</th>
                   <th scope="col" class="sort" data-sort="status">Last Name</th>
@@ -57,13 +57,12 @@
               </thead>
               <tbody class="list">
                 {% for employee in employees %}
-                    <tr class="employee">
+                {% if employee.is_active %}
+                    <tr class="employee active">
                   <th scope="row">
                     <div class="media align-items-center">
                       <div class="media-body">
-                        {{
-                          employee.username
-                         }}
+                        {{ employee.username }}
                       </div>
                     </div>
                   </th>
@@ -74,16 +73,43 @@
                     {{ employee.last_name }}
                   </td>
                   <td>
-      {{ submission.phone }}
+      {{ employee.phone }}
  </td>
                   <td>
-                    {{ submission.hire_date }}
+                    {{ employee.hire_date }}
                   </td>
                   <td>
-                    <a class="btn btn-secondary" href="{% url 'roster-profile' pk=employee.id %}">Employee Details</a>
+                    <a class="btn btn-secondary" href="{% url 'employee' pk=employee.id %}">Employee Details</a>
                   </td>
                 </tr>
+                {% elif not employee.is_active %}
+                <tr class="employee former">
+                  <th scope="row">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        {{ employee.username }}
+                      </div>
+                    </div>
+                  </th>
+<td>
+  {{ employee.first_name }}
+</td>
+                  <td class="budget">
+                    {{ employee.last_name }}
+                  </td>
+                  <td>
+      {{ employee.phone }}
+ </td>
+                  <td>
+                    {{ employee.hire_date }}
+                  </td>
+                  <td>
+                    <a class="btn btn-secondary" href="{% url 'employee-details' pk=employee.id %}">Employee Details</a>
+                  </td>
+                </tr>
+                {% endif %}
                 {% endfor %}
+
               </tbody>
             </table>
           </div>

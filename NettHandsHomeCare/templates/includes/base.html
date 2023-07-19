@@ -18,15 +18,15 @@
         rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.cs' %}s" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/elegant-icons.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/font-awesome.min.css' %}s" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/elegant-icons.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/owl.carousel.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/magnific-popup.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/slicknav.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static '/css/style.css' %}" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="{% static 'js/pagination.js' %}"></script>
+  <script src="{% static '/js/pagination.js' %}"></script>
 {% block customstyles %}
 {% endblock customstyles %}
 </head>
@@ -65,7 +65,7 @@
                                  <li><a href="#contact">Contact</a></li>
                              </ul>
                              {% else %}
-                              <a href="{% url 'index' %}"><img src="{% static 'img/logo-light.png' %}" alt=""></a>
+                              <a href="{% url 'index' %}"><img src="{% static '/img/logo-light.png' %}" alt=""></a>
                      </div>
                  </div>
                  <div class="col-lg-10">
@@ -194,16 +194,16 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static '/js/jquery-3.3.1.min.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/mixitup.min.js' %}"></script>
-    <script src="{% static 'js/masonry.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.slicknav.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/custom-scripts.js' %}"></script>
+    <script src="{% static '/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'j/s/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static '/js/mixitup.min.js' %}"></script>
+    <script src="{% static '/js/masonry.pkgd.min.js' %}"></script>
+    <script src="{% static '/js/jquery.slicknav.js' %}"></script>
+    <script src="{% static '/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static '/js/main.js' %}"></script>
+    <script src="{% static '/js/custom-scripts.js' %}"></script>
 {% block customscripts %}
 {% endblock customscripts %}
 </body>
